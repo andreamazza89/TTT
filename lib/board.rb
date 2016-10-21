@@ -16,7 +16,9 @@ class Board
   end
 
   def add_move(move, flag)
-    board_state[0][0] = 'x'
+    row = extract_row(move)
+    column = extract_column(move)
+    board_state[row][column] = flag
   end
 
   private
@@ -39,10 +41,24 @@ class Board
     end.join('|') + "\n"
   end
 
+  def extract_row(move)
+    LETTER_TO_NUMBER[move[0]]
+  end
+
+  def extract_column(move)
+    move[1].to_i - 1
+  end
+
   NUMBER_TO_LETTER = {
     1 => 'A',
     2 => 'B',
     3 => 'C',
+  }
+
+  LETTER_TO_NUMBER = {
+    'A' => 0,
+    'B' => 1,
+    'C' => 2,
   }
 
 end

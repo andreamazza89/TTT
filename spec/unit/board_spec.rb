@@ -17,8 +17,9 @@ describe Board, '#add_move' do
     board = described_class.new
 
     board.add_move('A1', 'x') 
+    board.add_move('B2', 'o') 
 
-    expect(board.stringified_status).to eq BOARDS_AS_STRINGS[:one_move]
+    expect(board.stringified_status).to eq BOARDS_AS_STRINGS[:two_moves]
   end
 
 end

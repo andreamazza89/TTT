@@ -3,7 +3,7 @@ require_relative '../fixtures/stringified_boards'
 
 describe 'Integration - human v human' do
 
-  context 'At the start' do
+  context 'At the start of the game' do
 
     it 'Asks the player for a move and shows the board' do
       mock_console = spy('Console');

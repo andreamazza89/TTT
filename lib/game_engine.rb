@@ -2,8 +2,8 @@ class GameEngine
 
   def initialize(arguments)
     input = arguments[:input]
-    player_one = HumanPlayer.new(name: '1', input: input)
-    player_two = HumanPlayer.new(name: '2', input: input)
+    player_one = HumanPlayer.new(name: '1', input: input, flag: 'x')
+    player_two = HumanPlayer.new(name: '2', input: input, flag: 'o')
     @players = [player_one, player_two]
     @board = Board.new
     @output = arguments[:output]
