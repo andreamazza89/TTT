@@ -1,12 +1,15 @@
 class GameEngine
 
   def initialize(arguments)
-    @output = arguments[:output]
-    @players = [HumanPlayer.new(name: '1'), HumanPlayer.new(name: '2')]
+    input = arguments[:input]
+    player_one = HumanPlayer.new(name: '1', input: input)
+    player_two = HumanPlayer.new(name: '2', input: input)
+    @players = [player_one, player_two]
     @board = Board.new
+    @output = arguments[:output]
   end
 
-  def play
+  def next_turn
 
 ##########################################
   #check for winner
@@ -14,8 +17,8 @@ class GameEngine
     #players.first.choose_next_move(board)
     #change turn
 ##########################################
-
-    get_next_move(players.first)
+    move = get_next_move(players.first)
+    board.add_move(move, players.first.flag)
 
   end
 
@@ -24,7 +27,8 @@ class GameEngine
   attr_reader :output, :players, :board
 
   def get_next_move(player)
-    output.puts "Player #{player.name}, it's your turn, have a look at the board and pick a move:\n" + board.print_status
+    output.puts "Player #{player.name}, it's your turn, have a look at the board and pick a move:\n" + board.stringified_status
+    player.next_move
   end
 
 end

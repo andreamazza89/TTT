@@ -7,21 +7,23 @@ describe 'Integration - human v human' do
 
     it 'Asks the player for a move and shows the board' do
       mock_console = spy('Console');
-      game_engine = GameEngine.new(output: mock_console)
+      mock_user_input = File.open('spec/fixtures/one_move.ttt')
+      game_engine = GameEngine.new(input: mock_user_input, output: mock_console)
 
-      game_engine.play
+      game_engine.next_turn
       
       expect(mock_console).to have_received(:puts)
         .with "Player 1, it's your turn, have a look at the board and pick a move:\n" +
               BOARDS_AS_STRINGS[:empty_board]
     end
 
-    xit 'Updates the board with first players move' do
+    it 'Updates the board with first players move' do
       mock_console = spy('Console');
-      mock_user = File.open('spec/fixtures/one_move.ttt')
-      game_engine = GameEngine.new(input: mock_user, output: mock_console)
+      mock_user_input = File.open('spec/fixtures/one_move.ttt')
+      game_engine = GameEngine.new(input: mock_user_input, output: mock_console)
 
-      game_engine.play
+      game_engine.next_turn
+      game_engine.next_turn
       
       expect(mock_console).to have_received(:puts)
         .with "Player 2, it's your turn, have a look at the board and pick a move:\n" +
