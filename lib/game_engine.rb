@@ -8,21 +8,15 @@ class GameEngine
 
   def play
 
+##########################################
   #check for winner
     #ask for next move(players.first)
     #players.first.choose_next_move(board)
     #change turn
+##########################################
+
     get_next_move(players.first)
 
-    output.puts("Player 1, it’s your turn, have a look at the board and pick a move:
-
-  1 | 2 | 3 
-  ----------
-A   |   |   
-  ----------
-B   |   |   
-  ----------
-C   |   |   ")
   end
 
   private 
@@ -30,7 +24,7 @@ C   |   |   ")
   attr_reader :output, :players, :board
 
   def get_next_move(player)
-    puts "Player #{player.name}, it's your turn, have a look at the board and pick a move" + board.print_status
+    output.puts "Player #{player.name}, it's your turn, have a look at the board and pick a move:\n" + board.print_status
   end
 
 end

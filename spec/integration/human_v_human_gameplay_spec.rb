@@ -11,7 +11,7 @@ describe 'Integration - human v human' do
       game_engine.play
       
       expect(mock_console).to have_received(:puts)
-        .with "Player 1, it’s your turn, have a look at the board and pick a move:
+        .with "Player 1, it's your turn, have a look at the board and pick a move:
 
   1 | 2 | 3 
   ----------
@@ -30,7 +30,7 @@ C   |   |   "
       game_engine.play
       
       expect(mock_console).to have_received(:puts)
-        .with "Player 2, it’s your turn, have a look at the board and pick a move:
+        .with "Player 2, it's your turn, have a look at the board and pick a move:
 
   1 | 2 | 3 
   ----------
