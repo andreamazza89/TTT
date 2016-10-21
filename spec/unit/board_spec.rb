@@ -1,6 +1,3 @@
-require 'board'
-require_relative '../fixtures/stringified_boards'
-
 describe Board, '#print_status' do
 
   it 'prints the board (empty example)' do

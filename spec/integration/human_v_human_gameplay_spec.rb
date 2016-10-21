@@ -1,6 +1,3 @@
-require 'game_engine'
-require_relative '../fixtures/stringified_boards'
-
 describe 'Integration - human v human' do
 
   context 'At the start of the game' do

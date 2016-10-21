@@ -1,5 +1,3 @@
-require 'human_player'
-
 describe HumanPlayer, '#name' do
 
   it 'returns the players id' do
