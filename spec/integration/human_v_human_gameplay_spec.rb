@@ -19,7 +19,7 @@ describe 'Integration - human v human' do
 
     it 'Updates the board with first players move' do
       mock_console = spy('Console');
-      mock_user_input = File.open('spec/fixtures/one_move.ttt')
+      mock_user_input = File.open('spec/fixtures/two_moves.ttt')
       game_engine = GameEngine.new(input: mock_user_input, output: mock_console)
 
       game_engine.next_turn

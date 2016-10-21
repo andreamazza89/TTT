@@ -10,25 +10,22 @@ class GameEngine
   end
 
   def next_turn
-
-##########################################
-  #check for winner
-    #ask for next move(players.first)
-    #players.first.choose_next_move(board)
-    #change turn
-##########################################
-    move = get_next_move(players.first)
-    board.add_move(move, players.first.flag)
-
+    current_player = players.first
+    ask_for_next_move(players.first)
+    board.add_move(current_player.next_move, current_player.flag)
+    change_turn
   end
 
   private 
 
   attr_reader :output, :players, :board
 
-  def get_next_move(player)
+  def ask_for_next_move(player)
     output.puts "Player #{player.name}, it's your turn, have a look at the board and pick a move:\n" + board.stringified_status
-    player.next_move
+  end
+
+  def change_turn
+    players.rotate!
   end
 
 end
