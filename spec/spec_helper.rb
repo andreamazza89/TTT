@@ -4,6 +4,7 @@ Coveralls.wear!
 require 'game_engine'
 require 'board'
 require 'human_player'
+require 'helpers'
 require_relative './fixtures/stringified_boards'
 
 RSpec.configure do |config|
