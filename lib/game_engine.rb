@@ -1,9 +1,13 @@
+require 'human_player'
+require 'board'
+require_relative './game_prompts'
+
 class GameEngine
 
   def initialize(arguments)
     input = arguments[:input]
-    player_one = HumanPlayer.new(name: '1', input: input, flag: 'x')
-    player_two = HumanPlayer.new(name: '2', input: input, flag: 'o')
+    player_one = HumanPlayer.new(name: 'Player 1', input: input, flag: 'x')
+    player_two = HumanPlayer.new(name: 'Player 2', input: input, flag: 'o')
     @players = [player_one, player_two]
     @board = Board.new
     @output = arguments[:output]
@@ -21,7 +25,9 @@ class GameEngine
   attr_reader :output, :players, :board
 
   def ask_for_next_move(player)
-    output.puts "Player #{player.name}, it's your turn, have a look at the board and pick a move:\n" + board.stringified_status
+    output.puts player.name + 
+                GAME_PROMPTS[:ask_for_next_move] + "\n" +
+                board.stringified_status
   end
 
   def change_turn
