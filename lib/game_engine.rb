@@ -14,8 +14,7 @@ class GameEngine
   end
 
   def next_turn
-    current_player = players.first
-    ask_for_next_move(players.first)
+    ask_for_next_move(current_player)
     board.add_move(current_player.next_move, current_player.flag)
     change_turn
   end
@@ -28,6 +27,10 @@ class GameEngine
     output.puts player.name + 
                 GAME_PROMPTS[:ask_for_next_move] + "\n" +
                 board.stringified_status
+  end
+
+  def current_player
+    players.first
   end
 
   def change_turn
