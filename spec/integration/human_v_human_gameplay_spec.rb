@@ -1,31 +1,42 @@
 describe 'Integration - human v human' do
 
-  context 'At the start of the game' do
+  let(:mock_console) { spy('Console') }
+
+  context 'At the start of the game, with no custom configuration' do
 
     it 'Asks the player for a move and shows the board' do
-      mock_console = spy('Console');
-      mock_user_input = File.open('spec/fixtures/one_move.ttt')
-      game_engine = GameEngine.new(input: mock_user_input, output: mock_console)
+      mock_user_input = readable_moves("A1")
+      game_engine = new_game_engine(input: mock_user_input)
 
       game_engine.next_turn
       
       expect(mock_console).to have_received(:puts)
-        .with "Player 1, it's your turn, have a look at the board and pick a move:\n" +
-              BOARDS_AS_STRINGS[:empty_board]
+        .with prompt_for_input('Player 1') + VISUAL_BOARD[:no_moves]
     end
 
-    it 'Updates the board with first players move' do
-      mock_console = spy('Console');
-      mock_user_input = File.open('spec/fixtures/two_moves.ttt')
-      game_engine = GameEngine.new(input: mock_user_input, output: mock_console)
+    it 'Updates the board with first move' do
+      mock_user_input = readable_moves("A1", "B2")
+      game_engine = new_game_engine(input: mock_user_input)
 
       game_engine.next_turn
       game_engine.next_turn
       
       expect(mock_console).to have_received(:puts)
-        .with "Player 2, it's your turn, have a look at the board and pick a move:\n" +
-              BOARDS_AS_STRINGS[:one_move]
+        .with prompt_for_input('Player 2') + VISUAL_BOARD[:one_move]
     end
 
+  end
+
+  def readable_moves(*moves)
+    all_moves_in_one_string = moves.join("\n")
+    StringIO.new(all_moves_in_one_string)
+  end
+
+  def new_game_engine(arguments)
+    GameEngine.new(input: arguments[:input], output: mock_console)
+  end
+
+  def prompt_for_input(player_name)
+    player_name + ", it's your turn, have a look at the board and pick a move:\n"
   end
 end

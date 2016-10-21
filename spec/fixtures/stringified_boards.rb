@@ -1,6 +1,6 @@
-BOARDS_AS_STRINGS = {
+VISUAL_BOARD = {
 
-  empty_board: "
+  no_moves: "
   1 | 2 | 3 
   ----------
 A   |   |   

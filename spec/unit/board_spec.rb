@@ -3,7 +3,7 @@ describe Board, '#print_status' do
   it 'prints the board (empty example)' do
     board = described_class.new
 
-    expect(board.stringified_status).to eq BOARDS_AS_STRINGS[:empty_board]
+    expect(board.stringified_status).to eq VISUAL_BOARD[:no_moves]
   end
 
 end
@@ -16,7 +16,7 @@ describe Board, '#add_move' do
     board.add_move('A1', 'x') 
     board.add_move('B2', 'o') 
 
-    expect(board.stringified_status).to eq BOARDS_AS_STRINGS[:two_moves]
+    expect(board.stringified_status).to eq VISUAL_BOARD[:two_moves]
   end
 
 end
