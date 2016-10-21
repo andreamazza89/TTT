@@ -5,14 +5,12 @@ class Board
   end
 
   def stringified_status
-    "\n" + 
-    header +
-    horizontal_spacer +
-    stringified_row(1) +
-    horizontal_spacer +
-    stringified_row(2) +
-    horizontal_spacer +
-    stringified_row(3).chomp
+    output =  "\n" + header
+    (0..2).each do |row|
+      output << horizontal_spacer
+      output << stringified_row(row)
+    end
+    output.chomp
   end
 
   def add_move(move, flag)
@@ -36,9 +34,14 @@ class Board
   def stringified_row(row_number)
     stringified_row = ''
     stringified_row << NUMBER_TO_LETTER[row_number]
-    stringified_row << board_state[row_number - 1].map do |cell|
+    stringified_row << stringify_row_cells(row_number)
+    stringified_row + "\n"
+  end
+
+  def stringify_row_cells(row_number)
+    board_state[row_number].map do |cell|
       cell.nil? ? '   ' : " #{cell} "
-    end.join('|') + "\n"
+    end.join('|')
   end
 
   def extract_row(move)
@@ -50,9 +53,9 @@ class Board
   end
 
   NUMBER_TO_LETTER = {
-    1 => 'A',
-    2 => 'B',
-    3 => 'C',
+    0 => 'A',
+    1 => 'B',
+    2 => 'C',
   }
 
   LETTER_TO_NUMBER = {
