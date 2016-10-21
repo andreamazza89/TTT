@@ -1,4 +1,5 @@
 require 'game_engine'
+require_relative '../fixtures/stringified_boards'
 
 describe 'Integration - human v human' do
 
@@ -11,15 +12,8 @@ describe 'Integration - human v human' do
       game_engine.play
       
       expect(mock_console).to have_received(:puts)
-        .with "Player 1, it's your turn, have a look at the board and pick a move:
-
-  1 | 2 | 3 
-  ----------
-A   |   |   
-  ----------
-B   |   |   
-  ----------
-C   |   |   "
+        .with "Player 1, it's your turn, have a look at the board and pick a move:\n" +
+              BOARDS_AS_STRINGS[:empty_board]
     end
 
     xit 'Updates the board with first players move' do
@@ -30,15 +24,8 @@ C   |   |   "
       game_engine.play
       
       expect(mock_console).to have_received(:puts)
-        .with "Player 2, it's your turn, have a look at the board and pick a move:
-
-  1 | 2 | 3 
-  ----------
-A x |   |   
-  ----------
-B   |   |   
-  ----------
-C   |   |   "
+        .with "Player 2, it's your turn, have a look at the board and pick a move:\n" +
+              BOARDS_AS_STRINGS[:one_move]
     end
 
   end
