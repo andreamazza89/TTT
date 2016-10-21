@@ -22,7 +22,7 @@ B   |   |
 C   |   |   "
     end
 
-    it 'Updates the board with first players move' do
+    xit 'Updates the board with first players move' do
       mock_console = spy('Console');
       mock_user = File.open('spec/fixtures/one_move.ttt')
       game_engine = GameEngine.new(input: mock_user, output: mock_console)
