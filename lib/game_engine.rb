@@ -1,5 +1,6 @@
 require 'human_player'
 require 'board'
+require 'board_printer'
 require_relative './game_prompts'
 
 class GameEngine
@@ -10,6 +11,7 @@ class GameEngine
     player_two = HumanPlayer.new(name: 'Player 2', input: input, flag: 'o')
     @players = [player_one, player_two]
     @board = Board.new
+    @board_printer = BoardPrinter
     @output = arguments[:output]
   end
 
@@ -21,12 +23,12 @@ class GameEngine
 
   private 
 
-  attr_reader :output, :players, :board
+  attr_reader :output, :players, :board, :board_printer
 
   def ask_for_next_move(player)
     output.puts player.name + 
                 GAME_PROMPTS[:ask_for_next_move] + "\n" +
-                board.stringified_status
+                board_printer.stringify_board(board)
   end
 
   def current_player

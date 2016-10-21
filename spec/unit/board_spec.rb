@@ -1,13 +1,3 @@
-describe Board, '#print_status' do
-
-  it 'prints the board (empty example)' do
-    board = described_class.new
-
-    expect(board.stringified_status).to eq VISUAL_BOARD[:no_moves]
-  end
-
-end
-
 describe Board, '#add_move' do
 
   it 'updates the board state with the cell/flag provided' do
@@ -16,7 +6,7 @@ describe Board, '#add_move' do
     board.add_move('A1', 'x') 
     board.add_move('B2', 'o') 
 
-    expect(board.stringified_status).to eq VISUAL_BOARD[:two_moves]
+    expect(board.board_state).to eq [['x', nil, nil], [nil, 'o', nil], [nil, nil, nil]]
   end
 
 end
