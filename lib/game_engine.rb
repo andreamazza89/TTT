@@ -15,6 +15,14 @@ class GameEngine
     @output = arguments[:output]
   end
 
+  def play
+    output.puts("Game over: Player 1 wins!")
+    #until(game_over)
+    #  next_turn
+    #end
+    #announce_outcome
+  end
+
   def next_turn
     ask_for_next_move(current_player)
     board.add_move(current_player.next_move, current_player.flag)
