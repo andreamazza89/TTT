@@ -8,5 +8,9 @@ def new_game_engine(arguments)
 end
 
 def prompt_for_input(player_name)
-  player_name + ", it's your turn, have a look at the board and pick a move:\n"
+  "#{player_name}, it's your turn, have a look at the board and pick a move:\n"
+end
+
+def announce_winner(player_name)
+  "Game over: #{player_name} wins!"
 end

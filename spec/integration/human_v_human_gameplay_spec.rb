@@ -26,4 +26,18 @@ describe 'Integration - human v human' do
     end
 
   end
+
+  context 'Full game' do
+
+    it 'Announces a winner when there is one (Player 1 wins)' do
+      mock_user_input = readable_moves("A1", "A2", "B2", "A3", "C3")
+      game_engine = new_game_engine(input: mock_user_input)
+
+      game_engine.play
+      
+      expect(mock_console).to have_received(:puts)
+        .with announce_winner('Player 1')
+    end
+
+  end
 end
