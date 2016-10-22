@@ -12,8 +12,6 @@ class Board
     board_state[row][column] = flag
   end
 
-  attr_reader :board_state
-
   private
 
   def extract_row(move)
