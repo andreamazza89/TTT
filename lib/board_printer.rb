@@ -11,17 +11,23 @@ class BoardPrinter
   end
 
   def stringify_board
-    output =  "\n" + GAME_PROMPTS[:board_header]
-    (0..2).each do |row|
-      output << GAME_PROMPTS[:board_horizontal_spacer]
-      output << stringified_row(row)
-    end
-    output.chomp
+    (header + board_rows.join).chomp
   end
 
   private 
 
   attr_reader :board
+
+  def header
+    "\n" + GAME_PROMPTS[:board_header]
+  end
+
+  def board_rows
+    board.board_state.map.with_index do |row_content, row_index| 
+      GAME_PROMPTS[:board_horizontal_spacer] + 
+      stringified_row(row_index)
+    end
+  end
 
   def stringified_row(row_number)
     stringified_row = NUMBER_TO_LETTER[row_number] + 
