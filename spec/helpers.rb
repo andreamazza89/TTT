@@ -1,3 +1,6 @@
+require_relative '../lib/game_prompts'
+#####IMPORT AND USE THE STANDARD PROMPTS
+
 def readable_moves(*moves)
   all_moves_in_one_string = moves.join("\n")
   StringIO.new(all_moves_in_one_string)
@@ -12,5 +15,9 @@ def prompt_for_input(player_name)
 end
 
 def announce_winner(player_name)
-  "Game over: #{player_name} wins!"
+  "Game over: #{player_name} wins!\n"
+end
+
+def announce_draw
+  GAME_PROMPTS[:announce_draw] 
 end

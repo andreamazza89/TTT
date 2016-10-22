@@ -1,6 +1,7 @@
-require 'human_player'
-require 'board'
-require 'board_printer'
+require_relative 'human_player'
+require_relative 'board'
+require_relative 'board_printer'
+require_relative 'board_evaluator'
 require_relative './game_prompts'
 
 class GameEngine
@@ -12,15 +13,15 @@ class GameEngine
     @players = [player_one, player_two]
     @board = Board.new
     @board_printer = BoardPrinter
+    @board_evaluator = BoardEvaluator
     @output = arguments[:output]
   end
 
   def play
-    output.puts("Game over: Player 1 wins!")
-    #until(game_over)
-    #  next_turn
-    #end
-    #announce_outcome
+    until game_over?
+      next_turn
+    end
+    announce_outcome
   end
 
   def next_turn
@@ -31,7 +32,26 @@ class GameEngine
 
   private 
 
-  attr_reader :output, :players, :board, :board_printer
+  attr_reader :output, :players, :board, :board_printer, :board_evaluator
+
+  def game_over?
+    board_evaluator.game_over?(board.board_state)
+  end
+
+  def announce_outcome
+    winner_flag = board_evaluator.winner_flag(board.board_state)
+    winner_index = players.index { |player| player.flag == winner_flag }
+    winner = players[winner_index] unless winner_index.nil?
+    output.puts((winner.nil? ? draw_message : winner_message(winner)) + board_printer.stringify_board(board))
+  end
+
+  def draw_message
+    GAME_PROMPTS[:announce_draw]
+  end
+
+  def winner_message(winner)
+    "Game over: #{winner.name} wins!\n"
+  end
 
   def ask_for_next_move(player)
     output.puts player.name + 

@@ -1,10 +1,12 @@
 require 'coveralls'
 Coveralls.wear!
 
-require 'game_engine'
-require 'board'
-require 'human_player'
-require 'helpers'
+require_relative '../lib/game_engine'
+require_relative '../lib/board'
+require_relative '../lib/board_evaluator'
+require_relative '../lib/board_printer'
+require_relative '../lib/human_player'
+require_relative './helpers'
 require_relative './fixtures/stringified_boards'
 
 RSpec.configure do |config|

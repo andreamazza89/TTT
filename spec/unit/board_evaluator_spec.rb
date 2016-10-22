@@ -37,10 +37,30 @@ describe BoardEvaluator, '#game_over?' do
     end
 
     it 'returns true if a player has won (upward diagonal)' do
-      partial_board_state = [['x', nil, 'o'],[nil, 'o', 'o'],['o', 'x', 'x']]
+      partial_board_state = [['o', nil, 'x'],[nil, 'o', nil],[nil, 'x', 'o']]
 
       expect(described_class.game_over?(partial_board_state)).to be true
     end
 
   end
+end
+
+describe BoardEvaluator, '#winner_flag' do
+
+  context 'When a winner exists' do
+
+    it 'returns the winning flag (naughts wins)' do
+      partial_board_state = [['o', nil, 'x'],[nil, 'o', nil],[nil, 'x', 'o']]
+
+      expect(described_class.winner_flag(partial_board_state)).to eq('o')
+    end
+
+    it 'returns the winning flag (crosses wins)' do
+      partial_board_state = [['x', nil, 'o'],[nil, 'x', nil],[nil, 'o', 'x']]
+
+      expect(described_class.winner_flag(partial_board_state)).to eq('x')
+    end
+
+  end
+
 end

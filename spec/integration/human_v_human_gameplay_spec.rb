@@ -36,7 +36,27 @@ describe 'Integration - human v human' do
       game_engine.play
       
       expect(mock_console).to have_received(:puts)
-        .with announce_winner('Player 1')
+        .with announce_winner('Player 1') + VISUAL_BOARD[:player_one_wins]
+    end
+
+    it 'Announces a winner when there is one (Player 2 wins)' do
+      mock_user_input = readable_moves("A1", "A2", "A3", "B2", "B1", "C2")
+      game_engine = new_game_engine(input: mock_user_input)
+
+      game_engine.play
+      
+      expect(mock_console).to have_received(:puts)
+        .with announce_winner('Player 2') + VISUAL_BOARD[:player_two_wins]
+    end
+
+    it 'Announces a draw when no one wins' do
+      mock_user_input = readable_moves("A1", "A2", "A3", "B2", "B1", "B3", "C2", "C1", "C3")
+      game_engine = new_game_engine(input: mock_user_input)
+
+      game_engine.play
+      
+      expect(mock_console).to have_received(:puts)
+        .with announce_draw + VISUAL_BOARD[:draw]
     end
 
   end
