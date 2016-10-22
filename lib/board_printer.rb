@@ -40,10 +40,4 @@ class BoardPrinter
     end.join('|')
   end
 
-  NUMBER_TO_LETTER = {
-    0 => 'A',
-    1 => 'B',
-    2 => 'C',
-  }
-
 end

@@ -3,3 +3,9 @@ GAME_PROMPTS = {
   board_header: "  1 | 2 | 3 \n",
   board_horizontal_spacer: "  ----------\n"
 }
+
+NUMBER_TO_LETTER = {
+  0 => 'A',
+  1 => 'B',
+  2 => 'C',
+}
