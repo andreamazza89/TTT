@@ -24,10 +24,8 @@ class BoardPrinter
   attr_reader :board
 
   def stringified_row(row_number)
-    stringified_row = ''
-    stringified_row << NUMBER_TO_LETTER[row_number]
-    stringified_row << stringify_row_cells(row_number)
-    stringified_row + "\n"
+    stringified_row = NUMBER_TO_LETTER[row_number] + 
+                      stringify_row_cells(row_number) + "\n"
   end
 
   def stringify_row_cells(row_number)
