@@ -1,3 +1,5 @@
+require_relative './game_prompts'
+
 class BoardPrinter
 
   def initialize(board)
@@ -9,9 +11,9 @@ class BoardPrinter
   end
 
   def stringify_board
-    output =  "\n" + header
+    output =  "\n" + GAME_PROMPTS[:board_header]
     (0..2).each do |row|
-      output << horizontal_spacer
+      output << GAME_PROMPTS[:board_horizontal_spacer]
       output << stringified_row(row)
     end
     output.chomp
@@ -20,14 +22,6 @@ class BoardPrinter
   private 
 
   attr_reader :board
-
-  def header
-    "  1 | 2 | 3 \n" 
-  end
-
-  def horizontal_spacer
-    "  ----------\n"
-  end
 
   def stringified_row(row_number)
     stringified_row = ''
