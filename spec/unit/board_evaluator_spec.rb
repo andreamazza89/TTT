@@ -1,4 +1,4 @@
-describe BoardEvaluator, '#game_over?', focus: true do
+describe BoardEvaluator, '#game_over?' do
 
   context 'When the board is full' do
 
@@ -30,8 +30,14 @@ describe BoardEvaluator, '#game_over?', focus: true do
       expect(described_class.game_over?(partial_board_state)).to be true
     end
 
-    it 'returns true if a player has won (diagonal)' do
+    it 'returns true if a player has won (downward diagonal)' do
       partial_board_state = [['x', nil, nil],['o', 'x', 'o'],[nil, nil, 'x']]
+
+      expect(described_class.game_over?(partial_board_state)).to be true
+    end
+
+    it 'returns true if a player has won (upward diagonal)' do
+      partial_board_state = [['x', nil, 'o'],[nil, 'o', 'o'],['o', 'x', 'x']]
 
       expect(described_class.game_over?(partial_board_state)).to be true
     end
