@@ -12,6 +12,12 @@ describe BoardEvaluator, '#game_over?' do
 
   context 'When the board is not full' do
 
+    it 'returns false with an empty board' do
+      partial_board_state = [[nil, nil, nil],[nil, nil, nil],[nil, nil, nil]]
+
+      expect(described_class.game_over?(partial_board_state)).to be false
+    end
+
     it 'returns false if no one has won yet' do
       partial_board_state = [['x', 'o', 'o'],['x', 'x', 'o'],['o', 'x', nil]]
 
