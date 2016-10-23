@@ -18,7 +18,7 @@ class BoardEvaluator
   end
 
   def winner_flag
-    winning_combination.first
+    winning_collection.first
   end
 
   private
@@ -67,7 +67,7 @@ class BoardEvaluator
     board_rows.reverse.map.with_index { |row, index| row[index] }.flatten
   end
 
-  def winning_combination
+  def winning_collection
     if winning_column_exists?
       board_columns.each { |column| return column if are_all_elements_one_flag.call(column) }
     elsif winning_row_exists?
