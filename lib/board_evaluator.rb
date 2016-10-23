@@ -30,15 +30,15 @@ class BoardEvaluator
   end
 
   def someone_has_won?
-    winning_column_exists? || winning_row_exists? || winning_diagonal_exists?
-  end
-
-  def winning_column_exists?
-    board_columns.any?(&are_all_elements_one_flag)
+    winning_row_exists? || winning_column_exists? || winning_diagonal_exists?
   end
 
   def winning_row_exists?
     board_rows.any?(&are_all_elements_one_flag)
+  end
+
+  def winning_column_exists?
+    board_columns.any?(&are_all_elements_one_flag)
   end
 
   def winning_diagonal_exists?
