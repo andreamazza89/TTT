@@ -6,6 +6,8 @@ require_relative '../lib/board'
 require_relative '../lib/board_evaluator'
 require_relative '../lib/board_printer'
 require_relative '../lib/human_player'
+require_relative '../lib/cpu_player'
+
 require_relative './helpers'
 require_relative './fixtures/stringified_boards'
 
