@@ -24,18 +24,25 @@ describe CpuPlayer, '#next_move' do
 
   context 'When the cpu_player can win' do
 
-    it 'chooses the winning move (row example 1)' do
+    it 'returns the winning move (row example 1)' do
       cpu_one = described_class.new(flag: 'x')
       board_state = [['x', 'x', nil], ['o', 'o', nil], [nil, nil, nil]]
 
       expect(cpu_one.next_move(board_state)).to eq "A3"
     end
 
-    it 'chooses the winning move (row example 2)' do
+    it 'returns the winning move (row example 2)' do
       cpu_one = described_class.new(flag: 'o')
       board_state = [['x', 'x', nil], ['o', 'o', nil], [nil, nil, nil]]
 
       expect(cpu_one.next_move(board_state)).to eq "B3"
+    end
+
+    it 'returns the winning move (column example 1)' do
+      cpu_one = described_class.new(flag: 'x')
+      board_state = [[nil, nil, 'o'], ['x', 'o', nil], ['x', nil, nil]]
+
+      expect(cpu_one.next_move(board_state)).to eq "A1"
     end
 
   end
