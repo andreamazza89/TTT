@@ -69,4 +69,14 @@ describe BoardEvaluator, '#winner_flag' do
 
   end
 
+  context 'When there is no winner' do
+
+    it 'returns nil' do
+      partial_board_state = [['o', nil, 'x'],[nil, 'x', nil],[nil, 'x', 'o']]
+
+      expect(described_class.winner_flag(partial_board_state)).to eq(nil)
+    end
+
+  end
+
 end
