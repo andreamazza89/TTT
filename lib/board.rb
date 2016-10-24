@@ -3,7 +3,7 @@ class Board
   attr_reader :board_state
 
   def initialize
-    @board_state = Array.new(3) { Array.new(3) }
+    @board_state = create_new_board
   end
 
   def add_move(move, flag)
@@ -12,7 +12,23 @@ class Board
     board_state[row][column] = flag
   end
 
+  def rows
+    board_state
+  end
+
   private
+
+  def create_new_board
+    board = []
+    for row_index in 0...BOARD_SIZE do
+       row = []
+      for column in 0...BOARD_SIZE do
+        row << Cell.new(row: row_index, column: column)
+      end
+      board << row
+    end
+    board
+  end
 
   def extract_row(move)
     LETTER_TO_NUMBER[move[0]]
@@ -27,5 +43,7 @@ class Board
     'B' => 1,
     'C' => 2,
   }
+
+  BOARD_SIZE = 3
 
 end

@@ -9,4 +9,8 @@ class Cell
     @flag = nil
   end
 
+  def ==(other)
+    other.row == self.row && other.column == self.column
+  end
+
 end
