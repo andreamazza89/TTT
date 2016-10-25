@@ -24,25 +24,39 @@ describe CpuPlayer, '#next_move' do
 
   context 'When the cpu_player can win' do
 
-    it 'returns the winning move (row example 1)' do
+    it 'returns the winning move (row example)' do
       cpu_one = described_class.new(flag: 'x')
-      board_state = [['x', 'x', nil], ['o', 'o', nil], [nil, nil, nil]]
+      winnable_board = Board.new
+      winnable_board.add_move('A1', 'x')
+      winnable_board.add_move('B1', 'o')
+      winnable_board.add_move('A2', 'x')
+      winnable_board.add_move('B2', 'o')
 
-      expect(cpu_one.next_move(board_state)).to eq "A3"
+      expect(cpu_one.next_move(winnable_board)).to eq "A3"
     end
 
-    it 'returns the winning move (row example 2)' do
-      cpu_one = described_class.new(flag: 'o')
-      board_state = [['x', 'x', nil], ['o', 'o', nil], [nil, nil, nil]]
+    it 'returns the winning move (column example)' do
+      cpu_one = described_class.new(flag: 'x')
+      winnable_board = Board.new
+      winnable_board.add_move('B1', 'x')
+      winnable_board.add_move('A3', 'o')
+      winnable_board.add_move('C1', 'x')
+      winnable_board.add_move('B2', 'o')
 
-      expect(cpu_one.next_move(board_state)).to eq "B3"
+
+      expect(cpu_one.next_move(winnable_board)).to eq "A1"
     end
 
-    xit 'returns the winning move (column example 1)' do
+    it 'returns the winning move (diagonal example)' do
       cpu_one = described_class.new(flag: 'x')
-      board_state = [[nil, nil, 'o'], ['x', 'o', nil], ['x', nil, nil]]
+      winnable_board = Board.new
+      winnable_board.add_move('B2', 'x')
+      winnable_board.add_move('A3', 'o')
+      winnable_board.add_move('A1', 'x')
+      winnable_board.add_move('B1', 'o')
 
-      expect(cpu_one.next_move(board_state)).to eq "A1"
+
+      expect(cpu_one.next_move(winnable_board)).to eq "C3"
     end
 
   end

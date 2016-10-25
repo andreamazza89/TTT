@@ -10,24 +10,24 @@ class CpuPlayer
     @flag = arguments[:flag]
   end
 
-  def next_move(board_state)
-    @current_board_state = board_state
-    convert_coordinates(winnable_row_index, winnable_column_index)
+  def next_move(board)
+    @current_board = board
+    winning_row = winning_cell.row
+    winning_column = winning_cell.column
+    convert_coordinates(winning_row, winning_column)
   end
 
   private
 
-  attr_accessor :current_board_state
+  attr_accessor :current_board
 
-  def winnable_row_index
-    for row_index in (0...current_board_state.length) do
-      return row_index if current_board_state[row_index].count(flag) == current_board_state.length - 1
+  def winning_cell
+    winning_combi = []
+    rows_columns_diagonals = current_board.rows + current_board.columns + current_board.diagonals
+    rows_columns_diagonals.each do |row|
+       winning_combi = row if row.map { |cell| cell.flag }.count(flag) == 2
     end
-    nil
-  end
-
-  def winnable_column_index
-    current_board_state[winnable_row_index].index(nil)
+    winning_combi.select { |cell| cell.flag.nil? }[0]
   end
 
   #This behaviour feels very similar (inverse of the same) to what the board does 
