@@ -35,11 +35,11 @@ class GameEngine
   attr_reader :output, :players, :board, :board_printer, :board_evaluator
 
   def game_over?
-    board_evaluator.game_over?(board.board_state)
+    board_evaluator.game_over?(board)
   end
 
   def announce_outcome
-    winner_flag = board_evaluator.winner_flag(board.board_state)
+    winner_flag = board_evaluator.winner_flag(board)
     winner_index = players.index { |player| player.flag == winner_flag }
     winner = players[winner_index] unless winner_index.nil?
     output.puts((winner.nil? ? draw_message : winner_message(winner)) + board_printer.stringify_board(board))
