@@ -1,7 +1,5 @@
 class Board
 
-  attr_reader :board_state
-
   def initialize
     @board_state = create_new_board
   end
@@ -31,6 +29,8 @@ class Board
   end
 
   private
+
+  attr_reader :board_state
 
   def downward_diagonal
     rows.map.with_index { |row, index| row[index] }.flatten
