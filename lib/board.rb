@@ -9,14 +9,36 @@ class Board
   def add_move(move, flag)
     row = extract_row(move)
     column = extract_column(move)
-    board_state[row][column] = flag
+    board_state[row][column].flag = flag
   end
 
   def rows
     board_state
   end
 
+  def columns
+    board_columns = []
+    board_state.length.times do |column_index|
+      column = []
+      rows.each { |row| column << row[column_index] }
+      board_columns << column
+    end
+    board_columns 
+  end
+
+  def diagonals
+    [downward_diagonal, upward_diagonal]
+  end
+
   private
+
+  def downward_diagonal
+    rows.map.with_index { |row, index| row[index] }.flatten
+  end
+
+  def upward_diagonal
+    rows.reverse.map.with_index { |row, index| row[index] }.flatten
+  end
 
   def create_new_board
     board = []
