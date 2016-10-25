@@ -22,7 +22,7 @@ end
 
 describe CpuPlayer, '#next_move' do
 
-  context 'When the cpu_player can win' do
+  context 'When the cpu_player could win' do
 
     it 'returns the winning move (row example)' do
       cpu_one = described_class.new(flag: 'x')
@@ -57,6 +57,58 @@ describe CpuPlayer, '#next_move' do
 
 
       expect(cpu_one.next_move(winnable_board)).to eq "C3"
+    end
+
+  end
+
+  context 'When the opponent could win' do
+
+    it 'returns the blocking move (row example)' do
+      cpu_one = described_class.new(flag: 'x')
+      winnable_board = Board.new
+      winnable_board.add_move('A1', 'x')
+      winnable_board.add_move('B1', 'o')
+      winnable_board.add_move('C3', 'x')
+      winnable_board.add_move('B2', 'o')
+
+      expect(cpu_one.next_move(winnable_board)).to eq "B3"
+    end
+
+    it 'returns the blocking move (column example)' do
+      cpu_one = described_class.new(flag: 'x')
+      winnable_board = Board.new
+      winnable_board.add_move('A3', 'x')
+      winnable_board.add_move('B1', 'o')
+      winnable_board.add_move('C2', 'x')
+      winnable_board.add_move('C1', 'o')
+
+      expect(cpu_one.next_move(winnable_board)).to eq "A1"
+    end
+
+    it 'returns the blocking move (diagonal example)' do
+      cpu_one = described_class.new(flag: 'x')
+      winnable_board = Board.new
+      winnable_board.add_move('A3', 'x')
+      winnable_board.add_move('B2', 'o')
+      winnable_board.add_move('C2', 'x')
+      winnable_board.add_move('A1', 'o')
+
+      expect(cpu_one.next_move(winnable_board)).to eq "C3"
+    end
+
+  end
+
+  context 'When a fork is available' do
+
+    xit 'returns the forking move (row example)' do
+      cpu_one = described_class.new(flag: 'x')
+      winnable_board = Board.new
+      winnable_board.add_move('A1', 'x')
+      winnable_board.add_move('B1', 'o')
+      winnable_board.add_move('B2', 'x')
+      winnable_board.add_move('C3', 'o')
+
+      expect(cpu_one.next_move(winnable_board)).to eq "A3"
     end
 
   end

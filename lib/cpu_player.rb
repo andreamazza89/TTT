@@ -12,22 +12,45 @@ class CpuPlayer
 
   def next_move(board)
     @current_board = board
-    winning_row = winning_cell.row
-    winning_column = winning_cell.column
-    convert_coordinates(winning_row, winning_column)
+
+    if winning_cell
+      winning_row = winning_cell.row
+      winning_column = winning_cell.column
+      return convert_coordinates(winning_row, winning_column)
+    elsif blocking_cell
+      blocking_row = blocking_cell.row
+      blocking_column = blocking_cell.column
+      return convert_coordinates(blocking_row, blocking_column)
+    elsif forking_cell
+      forking_row = forking_cell.row
+      forking_column = forking_cell.column
+      return convert_coordinates(forking_row, forking_column)
+    end
   end
 
   private
 
   attr_accessor :current_board
 
+  #PLEASE MEMOIZE MEEEE
   def winning_cell
-    winning_combi = []
+    winnable_combi = []
     rows_columns_diagonals = current_board.rows + current_board.columns + current_board.diagonals
-    rows_columns_diagonals.each do |row|
-       winning_combi = row if row.map { |cell| cell.flag }.count(flag) == 2
+    rows_columns_diagonals.each do |collection|
+       winnable_combi = collection if collection.map { |cell| cell.flag }.count(flag) == 2
     end
-    winning_combi.select { |cell| cell.flag.nil? }[0]
+    winnable_combi.select { |cell| cell.flag.nil? }[0]
+  end
+
+  #PLEASE MEMOIZE MEEEE
+  def blocking_cell
+    opponent_winnable_combi = []
+    rows_columns_diagonals = current_board.rows + current_board.columns + current_board.diagonals
+    rows_columns_diagonals.each do |collection|
+       opponent_winnable_combi = collection if collection.map { |cell| cell.flag }.count(flag) == 0 &&
+                                               collection.map { |cell| cell.flag }.count(nil) == 1
+    end
+    opponent_winnable_combi.select { |cell| cell.flag.nil? }[0]
   end
 
   #This behaviour feels very similar (inverse of the same) to what the board does 
