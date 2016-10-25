@@ -38,13 +38,6 @@ describe CpuPlayer, '#next_move' do
       expect(cpu_one.next_move(board_state)).to eq "B3"
     end
 
-    it 'returns the winning move (column example 1)' do
-      cpu_one = described_class.new(flag: 'x')
-      board_state = [[nil, nil, 'o'], ['x', 'o', nil], ['x', nil, nil]]
-
-      expect(cpu_one.next_move(board_state)).to eq "A1"
-    end
-
   end
 
 end
