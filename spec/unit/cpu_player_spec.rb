@@ -35,7 +35,7 @@ describe CpuPlayer, '#next_move' do
       expect(cpu_one.next_move(winnable_board)).to eq "A3"
     end
 
-    it 'returns the winning move (column example)' do
+    it 'returns the winning move (column example)', focus: true do
       cpu_one = described_class.new(flag: 'x')
       winnable_board = Board.new
       winnable_board.add_move('B1', 'x')

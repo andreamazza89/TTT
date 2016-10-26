@@ -6,51 +6,62 @@ class CpuPlayer
 
   def initialize(arguments)
     @name = arguments[:name] 
-    @input = arguments[:input]
     @flag = arguments[:flag]
+    @board_evaluator = BoardEvaluator
   end
 
   def next_move(board)
-    @current_board = board
-
-    if winning_cell
-      winning_row = winning_cell.row
-      winning_column = winning_cell.column
-      return convert_coordinates(winning_row, winning_column)
-    elsif blocking_cell
-      blocking_row = blocking_cell.row
-      blocking_column = blocking_cell.column
-      return convert_coordinates(blocking_row, blocking_column)
-    elsif forking_cell
-      forking_row = forking_cell.row
-      forking_column = forking_cell.column
-      return convert_coordinates(forking_row, forking_column)
+    available_moves(board).max_by do |move| 
+      evaluate_move_outcome(board, move, true)
     end
   end
 
   private
 
-  attr_accessor :current_board
+  attr_reader :board_evaluator
 
-  #PLEASE MEMOIZE MEEEE
-  def winning_cell
-    winnable_combi = []
-    rows_columns_diagonals = current_board.rows + current_board.columns + current_board.diagonals
-    rows_columns_diagonals.each do |collection|
-       winnable_combi = collection if collection.map { |cell| cell.flag }.count(flag) == 2
-    end
-    winnable_combi.select { |cell| cell.flag.nil? }[0]
+  def available_moves(board)
+    all_cells = board.rows.flatten
+    empty_cells = all_cells.select { |cell| cell.flag.nil? }
+    empty_cells.map { |cell| convert_cell_to_move(cell) }
   end
 
-  #PLEASE MEMOIZE MEEEE
-  def blocking_cell
-    opponent_winnable_combi = []
-    rows_columns_diagonals = current_board.rows + current_board.columns + current_board.diagonals
-    rows_columns_diagonals.each do |collection|
-       opponent_winnable_combi = collection if collection.map { |cell| cell.flag }.count(flag) == 0 &&
-                                               collection.map { |cell| cell.flag }.count(nil) == 1
+  def convert_cell_to_move(cell)
+    convert_coordinates(cell.row, cell.column) 
+  end
+
+  def evaluate_move_outcome(board, move, is_maximising_player)
+    temporary_board = Marshal.load(Marshal.dump(board)) 
+    player_flag = is_maximising_player ? 'x' : 'o'
+    temporary_board.add_move(move, player_flag) #################REFACTOR TO REMOVE ASSUMPTION OF OTHER PLAYERS FLAG
+#p non_final_board_value(temporary_board, is_maximising_player)
+    return final_board_value(temporary_board) if game_over?(temporary_board)
+    non_final_board_value(temporary_board, is_maximising_player)
+  end
+
+  def final_board_value(board)
+    if winner_flag(board)
+      (winner_flag(board) == self.flag) ? 1 : -1
+    else
+      0
     end
-    opponent_winnable_combi.select { |cell| cell.flag.nil? }[0]
+  end
+
+#MEMOIZE MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+  def winner_flag(board)
+    board_evaluator.winner_flag(board)
+  end
+
+  def game_over?(board)
+    board_evaluator.game_over?(board)
+  end
+
+  def non_final_board_value(board, is_maximising_player)
+    if is_maximising_player
+      return available_moves(board).max_by { |move| evaluate_move_outcome(board, move, !is_maximising_player) }
+    else
+      return available_moves(board).min_by { |move| evaluate_move_outcome(board, move, !is_maximising_player) }
+    end
   end
 
   #This behaviour feels very similar (inverse of the same) to what the board does 
