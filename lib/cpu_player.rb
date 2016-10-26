@@ -6,7 +6,6 @@ class CpuPlayer
 
   def initialize(arguments)
     @name = arguments[:name] 
-    @input = arguments[:input]
     @flag = arguments[:flag]
   end
 
