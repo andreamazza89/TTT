@@ -4,10 +4,16 @@ class Board
     @board_state = create_new_board
   end
 
-  def add_move(move, flag)
+  def add_move!(move, flag)
     row = extract_row(move)
     column = extract_column(move)
     board_state[row][column].flag = flag
+  end
+
+  def add_move(move, flag)
+    new_board = Marshal.load(Marshal.dump(self))
+    new_board.add_move!(move, flag)
+    new_board
   end
 
   def rows

@@ -58,8 +58,10 @@ class CpuPlayer
 
   def non_final_board_value(board, is_maximising_player)
     if is_maximising_player
+puts BoardPrinter.stringify_board(board)
       return available_moves(board).max_by { |move| evaluate_move_outcome(board, move, !is_maximising_player) }
     else
+puts BoardPrinter.stringify_board(board)
       return available_moves(board).min_by { |move| evaluate_move_outcome(board, move, !is_maximising_player) }
     end
   end

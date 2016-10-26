@@ -49,15 +49,30 @@ describe Board, '#diagonals' do
 
 end
 
-describe Board, '#add_move' do
+describe Board, '#add_move!' do
 
   it 'updates the board state with the cell/flag provided' do
     board = described_class.new
 
-    board.add_move('A1', 'x') 
+    board.add_move!('A1', 'x') 
 
     updated_cell = board.rows[0][0]
     expect(updated_cell.flag).to eq 'x'
+  end
+
+end
+
+describe Board, '#add_move' do
+
+  it 'returns a new board updated with the given move without altering the board' do
+    original_board = described_class.new
+
+    new_board = original_board.add_move('A1', 'x') 
+
+    updated_cell = new_board.rows[0][0]
+    unchanged_cell = original_board.rows[0][0] 
+    expect(updated_cell.flag).to eq 'x'
+    expect(unchanged_cell.flag).to eq nil
   end
 
 end
