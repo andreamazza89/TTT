@@ -13,6 +13,7 @@ class CpuPlayer
   end
 
   def next_move(board)
+    return [0,0] if available_moves(board).length == 9
     available_moves(board).max_by { |move| rate_move_outcome(board, move, true, 0) }
   end
 
