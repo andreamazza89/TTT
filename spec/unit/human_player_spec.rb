@@ -26,7 +26,7 @@ describe HumanPlayer, '#next_move' do
     mock_user_input = spy('User input')
     player_one = described_class.new(input: mock_user_input )
 
-    player_one.next_move
+    player_one.next_move("")
 
     expect(mock_user_input).to have_received(:gets)
   end
@@ -35,14 +35,14 @@ describe HumanPlayer, '#next_move' do
     mock_user_input = double('User input', gets: "A1\n")
     player_one = described_class.new(input: mock_user_input)
 
-    expect(player_one.next_move).to eq([0,0])
+    expect(player_one.next_move("")).to eq([0,0])
   end
 
   it 'returns the input string, converted into a board move (example 2)' do
     mock_user_input = double('User input', gets: "B2\n")
     player_one = described_class.new(input: mock_user_input)
 
-    expect(player_one.next_move).to eq([1,1])
+    expect(player_one.next_move("")).to eq([1,1])
   end
 
 end

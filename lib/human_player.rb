@@ -8,7 +8,9 @@ class HumanPlayer
     @flag = arguments[:flag]
   end
 
-  def next_move
+  #the board is passed to this method as the CPU player needs it to evaluate next
+  #move and to keep the same interface
+  def next_move(board_not_required)
     graphical_coordinates = input.gets.chomp
     convert_graphical_to_board_coordinates(graphical_coordinates)
   end
