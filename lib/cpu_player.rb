@@ -1,4 +1,5 @@
 require_relative './game_prompts'
+require_relative './board_evaluator'
 
 class CpuPlayer
 
@@ -11,8 +12,7 @@ class CpuPlayer
   end
 
   def next_move(board)
-    available_moves(board).max_by do |move| 
-      evaluate_move_outcome(board, move, true)
+    available_moves(board).max_by do |move| evaluate_move_outcome(board, move, true, 0)
     end
   end
 
@@ -30,40 +30,40 @@ class CpuPlayer
     convert_coordinates(cell.row, cell.column) 
   end
 
-  def evaluate_move_outcome(board, move, is_maximising_player)
-    temporary_board = Marshal.load(Marshal.dump(board)) 
-    player_flag = is_maximising_player ? 'x' : 'o'
-    temporary_board.add_move(move, player_flag) #################REFACTOR TO REMOVE ASSUMPTION OF OTHER PLAYERS FLAG
-#p non_final_board_value(temporary_board, is_maximising_player)
-    return final_board_value(temporary_board) if game_over?(temporary_board)
-    non_final_board_value(temporary_board, is_maximising_player)
+  def evaluate_move_outcome(board, move, is_maximising_player, depth)
+    player_flag = is_maximising_player ? 'x' : 'o' #################REFACTOR TO REMOVE ASSUMPTION
+    next_board = board.add_move(move, player_flag)
+    return final_board_value(next_board, depth) if game_over?(next_board)
+    non_final_board_value(next_board, !is_maximising_player, depth)
   end
 
-  def final_board_value(board)
+  def final_board_value(board, depth)
     if winner_flag(board)
-      (winner_flag(board) == self.flag) ? 1 : -1
+      (winner_flag(board) == self.flag) ? 10 - depth : depth - 10
     else
       0
     end
   end
 
-#MEMOIZE MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+  def non_final_board_value(board, is_maximising_player, depth)
+    if is_maximising_player
+      available_moves(board).map do |move| 
+        evaluate_move_outcome(board, move, is_maximising_player, depth + 1)
+      end.max
+    else
+      available_moves(board).map do |move| 
+        evaluate_move_outcome(board, move, is_maximising_player, depth + 1)
+      end.min
+    end
+  end
+
+#MEMOIZE MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
   def winner_flag(board)
     board_evaluator.winner_flag(board)
   end
 
   def game_over?(board)
     board_evaluator.game_over?(board)
-  end
-
-  def non_final_board_value(board, is_maximising_player)
-    if is_maximising_player
-puts BoardPrinter.stringify_board(board)
-      return available_moves(board).max_by { |move| evaluate_move_outcome(board, move, !is_maximising_player) }
-    else
-puts BoardPrinter.stringify_board(board)
-      return available_moves(board).min_by { |move| evaluate_move_outcome(board, move, !is_maximising_player) }
-    end
   end
 
   #This behaviour feels very similar (inverse of the same) to what the board does 
