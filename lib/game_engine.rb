@@ -17,6 +17,10 @@ class GameEngine
     @output = arguments[:output]
   end
 
+  def setup_game_mode
+    output.puts(GAME_PROMPTS[:game_mode_selection]) 
+  end
+
   def play
     until game_over?
       next_turn
