@@ -13,8 +13,7 @@ class CpuPlayer
   end
 
   def next_move(board)
-    available_moves(board).max_by do |move| evaluate_move_outcome(board, move, true, 0)
-    end
+    available_moves(board).max_by { |move| rate_move_outcome(board, move, true, 0) }
   end
 
   private
@@ -28,11 +27,11 @@ class CpuPlayer
     empty_cells.map { |cell| convert_cell_to_move(cell) }
   end
 
-  def evaluate_move_outcome(board, move, is_maximising_player, depth)
+  def rate_move_outcome(board, move, is_maximising_player, depth)
     player_flag = is_maximising_player ? self.flag : opponents_flag(board)
     next_board = board.add_move(move, player_flag)
     return final_board_value(next_board, depth) if game_over?(next_board)
-    non_final_board_value(next_board, !is_maximising_player, depth)
+    rate_intermediate_board_value(next_board, !is_maximising_player, depth)
   end
 
   def final_board_value(board, depth)
@@ -43,15 +42,14 @@ class CpuPlayer
     end
   end
 
-  def non_final_board_value(board, is_maximising_player, depth)
-    if is_maximising_player
-      available_moves(board).map do |move| 
-        evaluate_move_outcome(board, move, is_maximising_player, depth + 1)
-      end.max
-    else
-      available_moves(board).map do |move| 
-        evaluate_move_outcome(board, move, is_maximising_player, depth + 1)
-      end.min
+  def rate_intermediate_board_value(board, is_maximising_player, depth)
+    all_moves_ratings = all_moves_ratings(board, is_maximising_player, depth)
+    is_maximising_player ? all_moves_ratings.max : all_moves_ratings.min
+  end
+
+  def all_moves_ratings(board, is_maximising_player, depth)
+    available_moves(board).map do |move| 
+      rate_move_outcome(board, move, is_maximising_player, depth + 1)
     end
   end
 
