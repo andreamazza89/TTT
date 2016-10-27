@@ -40,11 +40,11 @@ describe Board, '#diagonals' do
     board = described_class.new
 
     expect(board.diagonals).to eq [[Cell.new(row: 0, column: 0), 
-                                  Cell.new(row: 1, column: 1), 
-                                  Cell.new(row: 2, column: 2)],
-                                 [Cell.new(row: 2, column: 0),  
-                                  Cell.new(row: 1, column: 1), 
-                                  Cell.new(row: 0, column: 2)]]
+                                   Cell.new(row: 1, column: 1), 
+                                   Cell.new(row: 2, column: 2)],
+                                  [Cell.new(row: 2, column: 0),  
+                                   Cell.new(row: 1, column: 1), 
+                                   Cell.new(row: 0, column: 2)]]
   end
 
 end

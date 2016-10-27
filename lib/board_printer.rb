@@ -11,7 +11,7 @@ class BoardPrinter
   end
 
   def stringify_board
-    (header + board_rows.join).chomp
+    (header + visualise_board_rows.join).chomp
   end
 
   private 
@@ -22,7 +22,7 @@ class BoardPrinter
     "\n" + GAME_PROMPTS[:board_header]
   end
 
-  def board_rows
+  def visualise_board_rows
     board.rows.map.with_index do |row_cells, row_index| 
       GAME_PROMPTS[:board_horizontal_spacer] + 
       stringify_row(row_index)
