@@ -1,4 +1,5 @@
 require_relative 'human_player'
+require_relative 'cpu_player'
 require_relative 'board'
 require_relative 'board_printer'
 require_relative 'board_evaluator'
