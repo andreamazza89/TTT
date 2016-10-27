@@ -4,7 +4,8 @@ GAME_PROMPTS = {
   board_horizontal_spacer: "  ----------\n",
   announce_draw: "It was a draw!\n",
   game_mode_selection: "Please select a game mode: 1-Human v Human, 2-Human v PC, 3-PC v PC",
-  play_order_selection: "Would you like to swap the playing order?"
+  play_order_selection: "Would you like to swap the playing order?",
+  vertical_cell_separator: "|"
 }
 
 NUMBER_TO_LETTER = {

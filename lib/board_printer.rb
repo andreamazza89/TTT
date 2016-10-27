@@ -30,14 +30,13 @@ class BoardPrinter
   end
 
   def stringify_row(row_number)
-    stringified_row = NUMBER_TO_LETTER[row_number] + 
-                      stringify_row_cells(row_number) + "\n"
+    NUMBER_TO_LETTER[row_number] + stringify_row_cells(row_number) + "\n"
   end
 
   def stringify_row_cells(row_number)
     board.rows[row_number].map do |cell|
       cell.flag.nil? ? '   ' : " #{cell.flag} "
-    end.join('|')
+    end.join(GAME_PROMPTS[:vertical_cell_separator])
   end
 
 end
