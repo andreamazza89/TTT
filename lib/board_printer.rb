@@ -19,7 +19,7 @@ class BoardPrinter
   attr_reader :board
 
   def header
-    "\n" + GAME_PROMPTS[:board_header]
+    GAME_PROMPTS[:board_header]
   end
 
   def visualise_board_rows

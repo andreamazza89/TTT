@@ -1,6 +1,6 @@
 GAME_PROMPTS = {
   ask_for_next_move: ", it's your turn, have a look at the board and pick a move:",
-  board_header: "  1 | 2 | 3 \n",
+  board_header: "\n  1 | 2 | 3 \n",
   board_horizontal_spacer: "  ----------\n",
   announce_draw: "It was a draw!\n",
   game_mode_selection: "Please select a game mode: 1-Human v Human, 2-Human v PC, 3-PC v PC",
