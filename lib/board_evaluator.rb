@@ -37,10 +37,8 @@ class BoardEvaluator
   end
 
   def winning_collection
-    [board.rows, board.columns, board.diagonals].each do |rows_columns_diagonals|
-      rows_columns_diagonals.each do |collection|
-        return collection if are_all_elements_one_flag.call(collection)
-      end
+    board.rows_cols_diags.each do |collection|
+      return collection if are_all_elements_one_flag.call(collection)
     end
 
     nil

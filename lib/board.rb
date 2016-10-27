@@ -36,6 +36,20 @@ class Board
     [downward_diagonal, upward_diagonal]
   end
 
+  def available_moves
+    all_cells = rows.flatten
+    empty_cells = all_cells.select { |cell| cell.flag.nil? }
+    empty_cells.map { |cell| [cell.row, cell.column] }
+  end
+
+  def empty?
+    available_moves.length == BOARD_SIZE*BOARD_SIZE
+  end
+
+  def rows_cols_diags
+    rows + columns + diagonals 
+  end
+
   private
 
   attr_reader :board_state

@@ -1,4 +1,3 @@
-require_relative './game_prompts'
 require_relative './board_evaluator'
 
 class CpuPlayer
@@ -13,22 +12,16 @@ class CpuPlayer
   end
 
   def next_move(board)
-    return [0,0] if available_moves(board).length == 9
-    available_moves(board).max_by { |move| rate_move_outcome(board, move, true, 0) }
+    return board.available_moves.first if board.empty?
+    board.available_moves.max_by do |move|
+      rate_move_outcome(board, move, true, INITIAL_BOARD_DEPTH)
+    end
   end
 
   private
 
   attr_reader :board_evaluator
   attr_accessor :opponents_flag
-
-  #MOVE ME INTO THE BOARD CLASS??????????????????????????????????????????????????????????
-  def available_moves(board)
-    all_cells = board.rows.flatten
-    empty_cells = all_cells.select { |cell| cell.flag.nil? }
-    empty_cells.map { |cell| convert_cell_to_move(cell) }
-  end
-  #??????????????????????????????????????????????????????????????????????????????????????
 
   def rate_move_outcome(board, move, is_maximising_player, depth)
     player_flag = is_maximising_player ? self.flag : opponents_flag(board)
@@ -51,7 +44,7 @@ class CpuPlayer
   end
 
   def all_moves_ratings(board, is_maximising_player, depth)
-    available_moves(board).map do |move| 
+    board.available_moves.map do |move| 
       rate_move_outcome(board, move, is_maximising_player, depth + 1)
     end
   end
@@ -64,10 +57,6 @@ class CpuPlayer
     end
   end
 
-  def convert_cell_to_move(cell)
-    [cell.row, cell.column]
-  end
-
   def winner_flag(board)
     board_evaluator.winner_flag(board)
   end
@@ -75,5 +64,7 @@ class CpuPlayer
   def game_over?(board)
     board_evaluator.game_over?(board)
   end
+
+  INITIAL_BOARD_DEPTH = 0
 
 end
