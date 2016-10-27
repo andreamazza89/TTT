@@ -27,7 +27,7 @@ class CpuPlayer
   end
 
   def convert_cell_to_move(cell)
-    convert_coordinates(cell.row, cell.column) 
+    convert_coordinates([cell.row, cell.column]) 
   end
 
   def evaluate_move_outcome(board, move, is_maximising_player, depth)
@@ -67,8 +67,8 @@ class CpuPlayer
 
   #This behaviour feels very similar (inverse of the same) to what the board does 
   #to conver a 'human-language' move into array coordinates. Perhaps these are a class?
-  def convert_coordinates(row_index, column_index)
-    NUMBER_TO_LETTER[row_index] + (column_index + 1).to_s
+  def convert_coordinates(coordinates)
+    NUMBER_TO_LETTER[coordinates[0]] + (coordinates[1] + 1).to_s
   end
 
 end
