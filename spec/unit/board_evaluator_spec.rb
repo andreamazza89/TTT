@@ -3,9 +3,18 @@ describe BoardEvaluator, '#game_over?' do
   context 'When the board is full' do
 
     it 'returns true' do
-      full_board_state = [['x', 'o', 'o'],['x', 'x', 'o'],['o', 'x','x']]
+      mock_full_board = Board.new
+      mock_full_board.add_move!('A1', 'x')
+      mock_full_board.add_move!('A2', 'o')
+      mock_full_board.add_move!('A3', 'x')
+      mock_full_board.add_move!('B1', 'o')
+      mock_full_board.add_move!('B2', 'x')
+      mock_full_board.add_move!('B3', 'o')
+      mock_full_board.add_move!('C1', 'x')
+      mock_full_board.add_move!('C2', 'o')
+      mock_full_board.add_move!('C3', 'x')
 
-      expect(described_class.game_over?(full_board_state)).to be true
+      expect(described_class.game_over?(mock_full_board)).to be true
     end
 
   end
@@ -13,39 +22,62 @@ describe BoardEvaluator, '#game_over?' do
   context 'When the board is not full' do
 
     it 'returns false with an empty board' do
-      partial_board_state = [[nil, nil, nil],[nil, nil, nil],[nil, nil, nil]]
+      mock_empty_board = Board.new
 
-      expect(described_class.game_over?(partial_board_state)).to be false
+      expect(described_class.game_over?(mock_empty_board)).to be false
     end
 
     it 'returns false if no one has won yet' do
-      partial_board_state = [['x', 'o', 'o'],['x', 'x', 'o'],['o', 'x', nil]]
+      mock_partial_board = Board.new
+      mock_partial_board.add_move!('A1', 'x')
+      mock_partial_board.add_move!('A2', 'o')
+      mock_partial_board.add_move!('A3', 'x')
 
-      expect(described_class.game_over?(partial_board_state)).to be false
+      expect(described_class.game_over?(mock_partial_board)).to be false
     end
 
     it 'returns true if a player has won (row)' do
-      partial_board_state = [['x', 'o', 'o'],['x', 'x', 'x'],[nil, 'o', nil]]
+      mock_board_winner = Board.new
+      mock_board_winner.add_move!('A1', 'x')
+      mock_board_winner.add_move!('B1', 'o')
+      mock_board_winner.add_move!('A2', 'x')
+      mock_board_winner.add_move!('B2', 'o')
+      mock_board_winner.add_move!('A3', 'x')
 
-      expect(described_class.game_over?(partial_board_state)).to be true
+      expect(described_class.game_over?(mock_board_winner)).to be true
     end
 
     it 'returns true if a player has won (column)' do
-      partial_board_state = [['x', 'o', 'o'],['x', 'x', 'o'],['x', 'o', nil]]
+      mock_board_winner = Board.new
+      mock_board_winner.add_move!('A1', 'x')
+      mock_board_winner.add_move!('A2', 'o')
+      mock_board_winner.add_move!('B1', 'x')
+      mock_board_winner.add_move!('A3', 'o')
+      mock_board_winner.add_move!('C1', 'x')
 
-      expect(described_class.game_over?(partial_board_state)).to be true
+      expect(described_class.game_over?(mock_board_winner)).to be true
     end
 
     it 'returns true if a player has won (downward diagonal)' do
-      partial_board_state = [['x', nil, nil],['o', 'x', 'o'],[nil, nil, 'x']]
+      mock_board_winner = Board.new
+      mock_board_winner.add_move!('A1', 'x')
+      mock_board_winner.add_move!('A2', 'o')
+      mock_board_winner.add_move!('B2', 'x')
+      mock_board_winner.add_move!('A3', 'o')
+      mock_board_winner.add_move!('C3', 'x')
 
-      expect(described_class.game_over?(partial_board_state)).to be true
+      expect(described_class.game_over?(mock_board_winner)).to be true
     end
 
     it 'returns true if a player has won (upward diagonal)' do
-      partial_board_state = [['o', nil, 'x'],[nil, 'o', nil],[nil, 'x', 'o']]
+      mock_board_winner = Board.new
+      mock_board_winner.add_move!('C1', 'x')
+      mock_board_winner.add_move!('A1', 'o')
+      mock_board_winner.add_move!('B2', 'x')
+      mock_board_winner.add_move!('A2', 'o')
+      mock_board_winner.add_move!('A3', 'x')
 
-      expect(described_class.game_over?(partial_board_state)).to be true
+      expect(described_class.game_over?(mock_board_winner)).to be true
     end
 
   end
@@ -56,15 +88,25 @@ describe BoardEvaluator, '#winner_flag' do
   context 'When a winner exists' do
 
     it 'returns the winning flag (naughts wins)' do
-      partial_board_state = [['o', nil, 'x'],[nil, 'o', nil],[nil, 'x', 'o']]
+      mock_board_winner = Board.new
+      mock_board_winner.add_move!('A1', 'x')
+      mock_board_winner.add_move!('B1', 'o')
+      mock_board_winner.add_move!('A2', 'x')
+      mock_board_winner.add_move!('B2', 'o')
+      mock_board_winner.add_move!('A3', 'x')
 
-      expect(described_class.winner_flag(partial_board_state)).to eq('o')
+      expect(described_class.winner_flag(mock_board_winner)).to eq('x')
     end
 
     it 'returns the winning flag (crosses wins)' do
-      partial_board_state = [['x', nil, 'o'],[nil, 'x', nil],[nil, 'o', 'x']]
+      mock_board_winner = Board.new
+      mock_board_winner.add_move!('A1', 'o')
+      mock_board_winner.add_move!('B1', 'x')
+      mock_board_winner.add_move!('A2', 'o')
+      mock_board_winner.add_move!('B2', 'x')
+      mock_board_winner.add_move!('A3', 'o')
 
-      expect(described_class.winner_flag(partial_board_state)).to eq('x')
+      expect(described_class.winner_flag(mock_board_winner)).to eq('o')
     end
 
   end
@@ -72,9 +114,12 @@ describe BoardEvaluator, '#winner_flag' do
   context 'When there is no winner' do
 
     it 'returns nil' do
-      partial_board_state = [['o', nil, 'x'],[nil, 'x', nil],[nil, 'x', 'o']]
+      mock_board_no_winner = Board.new
+      mock_board_no_winner.add_move!('A1', 'x')
+      mock_board_no_winner.add_move!('A2', 'o')
+      mock_board_no_winner.add_move!('A3', 'x')
 
-      expect(described_class.winner_flag(partial_board_state)).to eq(nil)
+      expect(described_class.winner_flag(mock_board_no_winner)).to eq(nil)
     end
 
   end
