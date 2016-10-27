@@ -99,11 +99,25 @@ describe CpuPlayer, '#next_move', focus: true do
 
   context 'When a fork is available' do
 
-    it 'returns the forking move (row example)' do
+    it 'returns the forking move' do
       cpu_one = described_class.new(flag: 'x')
       winnable_board = Board.new
       winnable_board.add_move!('A1', 'x')
       winnable_board.add_move!('B1', 'o')
+      winnable_board.add_move!('B2', 'x')
+      winnable_board.add_move!('C3', 'o')
+
+      expect(cpu_one.next_move(winnable_board)).to eq "A2"
+    end
+
+  end
+
+  context 'When a fork is available to the opponent' do
+
+    it 'returns the fork-blocking move' do
+      cpu_one = described_class.new(flag: 'x')
+      winnable_board = Board.new
+      winnable_board.add_move!('A1', 'o')
       winnable_board.add_move!('B2', 'x')
       winnable_board.add_move!('C3', 'o')
 
