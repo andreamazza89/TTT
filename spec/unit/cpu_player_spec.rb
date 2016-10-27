@@ -27,35 +27,28 @@ describe CpuPlayer, '#next_move' do
     it 'returns the winning move (row example)' do
       cpu_one = described_class.new(flag: 'o')
       winnable_board = Board.new
-      winnable_board.add_move!('A1', 'o')
-      winnable_board.add_move!('B1', 'x')
-      winnable_board.add_move!('A2', 'o')
-      winnable_board.add_move!('B2', 'x')
+      moves = [[[0,0], 'o'], [[1,0], 'x'], [[0,1], 'o'], [[1,1], 'x']]
+      update_board_with_moves(winnable_board, moves)
 
-      expect(cpu_one.next_move(winnable_board)).to eq "A3"
+      expect(cpu_one.next_move(winnable_board)).to eq [0,2]
     end
 
     it 'returns the winning move (column example)' do
       cpu_one = described_class.new(flag: 'x')
       winnable_board = Board.new
-      winnable_board.add_move!('B1', 'x')
-      winnable_board.add_move!('A3', 'o')
-      winnable_board.add_move!('C1', 'x')
-      winnable_board.add_move!('B2', 'o')
+      moves = [[[1,0], 'x'], [[0,2], 'o'], [[2,0], 'x'], [[1,1], 'o']]
+      update_board_with_moves(winnable_board, moves)
 
-      expect(cpu_one.next_move(winnable_board)).to eq "A1"
+      expect(cpu_one.next_move(winnable_board)).to eq [0,0]
     end
 
     it 'returns the winning move (diagonal example)' do
       cpu_one = described_class.new(flag: 'x')
-      boardy = Board.new
-      boardy.add_move!('B2', 'x')
-      boardy.add_move!('A3', 'o')
-      boardy.add_move!('A1', 'x')
-      boardy.add_move!('B1', 'o')
+      winnable_board = Board.new
+      moves = [[[1,1], 'x'], [[0,2], 'o'], [[0,0], 'x'], [[1,0], 'o']]
+      update_board_with_moves(winnable_board, moves)
 
-
-      expect(cpu_one.next_move(boardy)).to eq "C3"
+      expect(cpu_one.next_move(winnable_board)).to eq [2,2]
     end
 
   end
@@ -65,34 +58,28 @@ describe CpuPlayer, '#next_move' do
     it 'returns the blocking move (row example)' do
       cpu_one = described_class.new(flag: 'x')
       winnable_board = Board.new
-      winnable_board.add_move!('A1', 'x')
-      winnable_board.add_move!('B2', 'o')
-      winnable_board.add_move!('C3', 'x')
-      winnable_board.add_move!('B3', 'o')
+      moves = [[[0,0], 'x'], [[1,1], 'o'], [[2,2], 'x'], [[1,2], 'o']]
+      update_board_with_moves(winnable_board, moves)
 
-      expect(cpu_one.next_move(winnable_board)).to eq "B1"
+      expect(cpu_one.next_move(winnable_board)).to eq [1,0]
     end
 
     it 'returns the blocking move (column example)' do
       cpu_one = described_class.new(flag: 'x')
       winnable_board = Board.new
-      winnable_board.add_move!('A3', 'x')
-      winnable_board.add_move!('B1', 'o')
-      winnable_board.add_move!('C2', 'x')
-      winnable_board.add_move!('C1', 'o')
+      moves = [[[0,2], 'x'], [[1,0], 'o'], [[2,1], 'x'], [[2,0], 'o']]
+      update_board_with_moves(winnable_board, moves)
 
-      expect(cpu_one.next_move(winnable_board)).to eq "A1"
+      expect(cpu_one.next_move(winnable_board)).to eq [0,0]
     end
 
     it 'returns the blocking move (diagonal example)' do
       cpu_one = described_class.new(flag: 'x')
       winnable_board = Board.new
-      winnable_board.add_move!('A3', 'x')
-      winnable_board.add_move!('B2', 'o')
-      winnable_board.add_move!('C2', 'x')
-      winnable_board.add_move!('A1', 'o')
+      moves = [[[0,2], 'x'], [[1,1], 'o'], [[2,1], 'x'], [[0,0], 'o']]
+      update_board_with_moves(winnable_board, moves)
 
-      expect(cpu_one.next_move(winnable_board)).to eq "C3"
+      expect(cpu_one.next_move(winnable_board)).to eq [2,2]
     end
 
   end
@@ -101,13 +88,11 @@ describe CpuPlayer, '#next_move' do
 
     it 'returns the forking move' do
       cpu_one = described_class.new(flag: 'x')
-      winnable_board = Board.new
-      winnable_board.add_move!('A1', 'x')
-      winnable_board.add_move!('B1', 'o')
-      winnable_board.add_move!('B2', 'x')
-      winnable_board.add_move!('C3', 'o')
+      forkable_board = Board.new
+      moves = [[[0,0], 'x'], [[1,1], 'o'], [[1,1], 'x'], [[2,2], 'o']]
+      update_board_with_moves(forkable_board, moves)
 
-      expect(cpu_one.next_move(winnable_board)).to eq "A2"
+      expect(cpu_one.next_move(forkable_board)).to eq [0,1]
     end
 
   end
@@ -116,12 +101,11 @@ describe CpuPlayer, '#next_move' do
 
     it 'returns the fork-blocking move' do
       cpu_one = described_class.new(flag: 'x')
-      winnable_board = Board.new
-      winnable_board.add_move!('A1', 'o')
-      winnable_board.add_move!('B2', 'x')
-      winnable_board.add_move!('C3', 'o')
+      forkable_board = Board.new
+      moves = [[[0,0], 'o'], [[1,1], 'x'], [[2,2], 'o']]
+      update_board_with_moves(forkable_board, moves)
 
-      expect(cpu_one.next_move(winnable_board)).to eq "A2"
+      expect(cpu_one.next_move(forkable_board)).to eq [0,1]
     end
 
   end

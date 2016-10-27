@@ -21,3 +21,11 @@ end
 def announce_draw
   GAME_PROMPTS[:announce_draw] 
 end
+
+def update_board_with_moves(board, moves)
+  moves.each do |move|
+    move_coordinates = move[0]
+    move_flag = move[1]
+    board.add_move!(move_coordinates, move_flag)
+  end
+end

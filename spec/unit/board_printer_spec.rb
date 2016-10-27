@@ -9,15 +9,10 @@ describe BoardPrinter, '#stringify_board' do
 
   it 'prints the board (draw example)' do
     draw_board = Board.new
-    draw_board.add_move!('A1', 'x')
-    draw_board.add_move!('A2', 'o')
-    draw_board.add_move!('A3', 'x')
-    draw_board.add_move!('B2', 'o')
-    draw_board.add_move!('B1', 'x')
-    draw_board.add_move!('B3', 'o')
-    draw_board.add_move!('C2', 'x')
-    draw_board.add_move!('C1', 'o')
-    draw_board.add_move!('C3', 'x')
+    moves = [[[0,0], 'x'], [[0,1], 'o'], [[0,2], 'x'], 
+             [[1,1], 'o'], [[1,0], 'x'], [[1,2], 'o'], 
+             [[2,1], 'x'], [[2,0], 'o'], [[2,2], 'x']] 
+    update_board_with_moves(draw_board, moves)
 
     visualised_board = described_class.stringify_board(draw_board)
     expect(visualised_board).to eq VISUAL_BOARD[:draw]

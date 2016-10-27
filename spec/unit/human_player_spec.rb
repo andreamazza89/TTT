@@ -20,7 +20,7 @@ describe HumanPlayer, '#flag' do
 
 end
 
-describe HumanPlayer, '#next_move', focus: true do
+describe HumanPlayer, '#next_move' do
 
   it 'sends :gets to the given input stream to get the move' do
     mock_user_input = spy('User input')
