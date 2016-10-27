@@ -10,3 +10,10 @@ NUMBER_TO_LETTER = {
   1 => 'B',
   2 => 'C',
 }
+
+
+LETTER_TO_NUMBER = {
+  'A' => NUMBER_TO_LETTER.key('A'),
+  'B' => NUMBER_TO_LETTER.key('B'),
+  'C' => NUMBER_TO_LETTER.key('C'),
+}
