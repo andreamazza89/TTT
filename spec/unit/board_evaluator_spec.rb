@@ -60,22 +60,22 @@ describe BoardEvaluator, '#game_over?' do
 
     it 'returns true if a player has won (downward diagonal)' do
       mock_board_winner = Board.new
-      mock_board_winner.add_move('A1', 'x')
-      mock_board_winner.add_move('A2', 'o')
-      mock_board_winner.add_move('B2', 'x')
-      mock_board_winner.add_move('A3', 'o')
-      mock_board_winner.add_move('C3', 'x')
+      mock_board_winner.add_move!('A1', 'x')
+      mock_board_winner.add_move!('A2', 'o')
+      mock_board_winner.add_move!('B2', 'x')
+      mock_board_winner.add_move!('A3', 'o')
+      mock_board_winner.add_move!('C3', 'x')
 
       expect(described_class.game_over?(mock_board_winner)).to be true
     end
 
     it 'returns true if a player has won (upward diagonal)' do
       mock_board_winner = Board.new
-      mock_board_winner.add_move('C1', 'x')
-      mock_board_winner.add_move('A1', 'o')
-      mock_board_winner.add_move('B2', 'x')
-      mock_board_winner.add_move('A2', 'o')
-      mock_board_winner.add_move('A3', 'x')
+      mock_board_winner.add_move!('C1', 'x')
+      mock_board_winner.add_move!('A1', 'o')
+      mock_board_winner.add_move!('B2', 'x')
+      mock_board_winner.add_move!('A2', 'o')
+      mock_board_winner.add_move!('A3', 'x')
 
       expect(described_class.game_over?(mock_board_winner)).to be true
     end
@@ -89,22 +89,22 @@ describe BoardEvaluator, '#winner_flag' do
 
     it 'returns the winning flag (naughts wins)' do
       mock_board_winner = Board.new
-      mock_board_winner.add_move('A1', 'x')
-      mock_board_winner.add_move('B1', 'o')
-      mock_board_winner.add_move('A2', 'x')
-      mock_board_winner.add_move('B2', 'o')
-      mock_board_winner.add_move('A3', 'x')
+      mock_board_winner.add_move!('A1', 'x')
+      mock_board_winner.add_move!('B1', 'o')
+      mock_board_winner.add_move!('A2', 'x')
+      mock_board_winner.add_move!('B2', 'o')
+      mock_board_winner.add_move!('A3', 'x')
 
       expect(described_class.winner_flag(mock_board_winner)).to eq('x')
     end
 
     it 'returns the winning flag (crosses wins)' do
       mock_board_winner = Board.new
-      mock_board_winner.add_move('A1', 'o')
-      mock_board_winner.add_move('B1', 'x')
-      mock_board_winner.add_move('A2', 'o')
-      mock_board_winner.add_move('B2', 'x')
-      mock_board_winner.add_move('A3', 'o')
+      mock_board_winner.add_move!('A1', 'o')
+      mock_board_winner.add_move!('B1', 'x')
+      mock_board_winner.add_move!('A2', 'o')
+      mock_board_winner.add_move!('B2', 'x')
+      mock_board_winner.add_move!('A3', 'o')
 
       expect(described_class.winner_flag(mock_board_winner)).to eq('o')
     end

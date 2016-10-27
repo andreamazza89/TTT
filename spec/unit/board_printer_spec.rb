@@ -1,4 +1,4 @@
-describe BoardPrinter, '#stringify_board', focus: true do
+describe BoardPrinter, '#stringify_board' do
 
   it 'prints the board (empty example)' do
     empty_board = Board.new

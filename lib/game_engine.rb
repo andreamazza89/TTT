@@ -26,7 +26,7 @@ class GameEngine
 
   def next_turn
     ask_for_next_move(current_player)
-    board.add_move(current_player.next_move, current_player.flag)
+    board.add_move!(current_player.next_move, current_player.flag)
     change_turn
   end
 
