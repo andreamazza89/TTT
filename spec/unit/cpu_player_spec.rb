@@ -25,12 +25,12 @@ describe CpuPlayer, '#next_move', focus: true do
   context 'When the cpu_player could win' do
 
     it 'returns the winning move (row example)' do
-      cpu_one = described_class.new(flag: 'x')
+      cpu_one = described_class.new(flag: 'o')
       winnable_board = Board.new
-      winnable_board.add_move!('A1', 'x')
-      winnable_board.add_move!('B1', 'o')
-      winnable_board.add_move!('A2', 'x')
-      winnable_board.add_move!('B2', 'o')
+      winnable_board.add_move!('A1', 'o')
+      winnable_board.add_move!('B1', 'x')
+      winnable_board.add_move!('A2', 'o')
+      winnable_board.add_move!('B2', 'x')
 
       expect(cpu_one.next_move(winnable_board)).to eq "A3"
     end

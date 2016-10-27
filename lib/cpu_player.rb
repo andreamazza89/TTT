@@ -8,6 +8,7 @@ class CpuPlayer
   def initialize(arguments)
     @name = arguments[:name] 
     @flag = arguments[:flag]
+    @opponents_flag = nil
     @board_evaluator = BoardEvaluator
   end
 
@@ -19,6 +20,7 @@ class CpuPlayer
   private
 
   attr_reader :board_evaluator
+  attr_accessor :opponents_flag
 
   def available_moves(board)
     all_cells = board.rows.flatten
@@ -26,12 +28,8 @@ class CpuPlayer
     empty_cells.map { |cell| convert_cell_to_move(cell) }
   end
 
-  def convert_cell_to_move(cell)
-    convert_coordinates([cell.row, cell.column]) 
-  end
-
   def evaluate_move_outcome(board, move, is_maximising_player, depth)
-    player_flag = is_maximising_player ? 'x' : 'o' #################REFACTOR TO REMOVE ASSUMPTION
+    player_flag = is_maximising_player ? self.flag : opponents_flag(board)
     next_board = board.add_move(move, player_flag)
     return final_board_value(next_board, depth) if game_over?(next_board)
     non_final_board_value(next_board, !is_maximising_player, depth)
@@ -55,6 +53,18 @@ class CpuPlayer
         evaluate_move_outcome(board, move, is_maximising_player, depth + 1)
       end.min
     end
+  end
+
+  def opponents_flag(board)
+    opponents_flag ||= board.rows.each do |row|
+      row.each do |cell|
+        return cell.flag if (cell.flag != self.flag) && (cell.flag != nil)
+      end
+    end
+  end
+
+  def convert_cell_to_move(cell)
+    convert_coordinates([cell.row, cell.column]) 
   end
 
   def winner_flag(board)
