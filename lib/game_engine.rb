@@ -23,6 +23,11 @@ class GameEngine
   def setup_game_mode
     output.puts(GAME_PROMPTS[:game_mode_selection]) 
     selected_mode = input.gets.chomp
+    until valid_game_mode_input?(selected_mode) do
+      output.puts(GAME_PROMPTS[:invalid_game_mode_selection]) 
+      selected_mode = input.gets.chomp
+    end
+
     case selected_mode
       when GAME_MODES[:human_v_human]
         @players = [default_human_player('Player 1', 'x', input), default_human_player('Player 2', 'o', input)]
@@ -84,8 +89,8 @@ class GameEngine
   end
 
   def ask_for_next_move(player)
-    output.puts player.name + 
-                GAME_PROMPTS[:ask_for_next_move] + "\n" +
+    output.puts player.name +
+                GAME_PROMPTS[:ask_for_next_move] +
                 board_printer.stringify_board(board)
   end
 
@@ -95,6 +100,10 @@ class GameEngine
 
   def change_turn
     players.rotate!
+  end
+
+  def valid_game_mode_input?(input)
+    %w[1 2 3].include?(input)
   end
 
   GAME_MODES = {
