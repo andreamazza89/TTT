@@ -38,8 +38,8 @@ class CpuPlayer
   end
 
   def final_board_value(board, depth)
-    if winner_flag(board)
-      (winner_flag(board) == self.flag) ? 10 - depth : depth - 10
+    if (winner_flag = winner_flag(board))
+      (winner_flag == self.flag) ? 10 - depth : depth - 10
     else
       0
     end
@@ -57,7 +57,6 @@ class CpuPlayer
     end
   end
 
-#MEMOIZE MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
   def winner_flag(board)
     board_evaluator.winner_flag(board)
   end
