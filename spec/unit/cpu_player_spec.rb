@@ -20,7 +20,7 @@ describe CpuPlayer, '#flag' do
 
 end
 
-describe CpuPlayer, '#next_move', focus: true do
+describe CpuPlayer, '#next_move' do
 
   context 'When the cpu_player could win' do
 
