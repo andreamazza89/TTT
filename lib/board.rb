@@ -5,8 +5,8 @@ class Board
   end
 
   def add_move!(move, flag)
-    row = extract_row(move)
-    column = extract_column(move)
+    row = move[0]
+    column = move[1]
     board_state[row][column].flag = flag
   end
 
@@ -57,20 +57,6 @@ class Board
     end
     board
   end
-
-  def extract_row(move)
-    LETTER_TO_NUMBER[move[0]]
-  end
-
-  def extract_column(move)
-    move[1].to_i - 1
-  end
-
-  LETTER_TO_NUMBER = {
-    'A' => 0,
-    'B' => 1,
-    'C' => 2,
-  }
 
   BOARD_SIZE = 3
 
