@@ -3,7 +3,6 @@ describe 'Integration - human v human' do
   let(:mock_console) { spy('Console') }
 
   context 'At the start of the game, with no custom configuration' do
-
     it 'Asks the player for a move and shows the board' do
       mock_user_input = readable_moves("A1")
       game_engine = new_game_engine(input: mock_user_input)
@@ -24,11 +23,10 @@ describe 'Integration - human v human' do
       expect(mock_console).to have_received(:puts)
         .with prompt_for_input('Player 2') + VISUAL_BOARD[:one_move]
     end
-
   end
 
-  context 'Full game' do
 
+  context 'Full game' do
     it 'Announces a winner when there is one (Player 1 wins)' do
       mock_user_input = readable_moves("A1", "A2", "B2", "A3", "C3")
       game_engine = new_game_engine(input: mock_user_input)
@@ -58,6 +56,5 @@ describe 'Integration - human v human' do
       expect(mock_console).to have_received(:puts)
         .with announce_draw + VISUAL_BOARD[:draw]
     end
-
   end
 end
