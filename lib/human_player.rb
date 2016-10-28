@@ -36,7 +36,7 @@ class HumanPlayer
     move[1].to_i - 1
   end
 
-  VALID_MOVE_REGEX = /[A-C][1-3]/
+  VALID_MOVE_REGEX = /^[A-C][1-3]$/
 
 end
 
