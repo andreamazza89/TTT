@@ -14,18 +14,6 @@ def prompt_for_input(player_name)
   "#{player_name}, it's your turn, have a look at the board and pick a move:\n"
 end
 
-def prompt_for_game_mode_selection
-  GAME_PROMPTS[:game_mode_selection] 
-end
-
-def prompt_for_invalid_game_mode_selection
-  GAME_PROMPTS[:invalid_game_mode_selection] 
-end
-
-def prompt_for_play_order
-  GAME_PROMPTS[:play_order_selection] 
-end
-
 def announce_winner(player_name)
   "Game over: #{player_name} wins!\n"
 end
