@@ -80,23 +80,37 @@ class GameEngine
 
   def announce_outcome
     winner_flag = board_evaluator.winner_flag(board)
-    winner_index = players.index { |player| player.flag == winner_flag }
-    winner = players[winner_index] unless winner_index.nil?
-    output.puts((winner.nil? ? draw_message : winner_message(winner)) + board_printer.stringify_board(board))
+
+    if winner_flag.nil?
+      output.puts(draw_message + printed_board)
+    else
+      winner_name = find_player_name(winner_flag)
+      output.puts(winner_message(winner_name) + printed_board)
+    end
+    
   end
 
   def draw_message
     GAME_PROMPTS[:announce_draw]
   end
 
-  def winner_message(winner)
-    "Game over: #{winner.name} wins!\n"
+  def winner_message(winner_name)
+    "Game over: #{winner_name} wins!\n"
   end
 
   def ask_for_next_move(player)
     output.puts player.name +
                 GAME_PROMPTS[:ask_for_next_move] +
                 board_printer.stringify_board(board)
+  end
+
+  def find_player_name(player_flag)
+    player_index = players.index { |player| player.flag == player_flag }
+    players[player_index].name
+  end
+
+  def printed_board
+    board_printer.stringify_board(board)
   end
 
   def current_player
