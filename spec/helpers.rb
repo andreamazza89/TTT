@@ -41,3 +41,7 @@ def update_board_with_moves(board, moves)
     board.add_move!(move_coordinates, move_flag)
   end
 end
+
+def please_try_again(msg)
+  GAME_PROMPTS[:please_try_again] + msg
+end

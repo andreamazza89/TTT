@@ -11,7 +11,7 @@ describe 'Integration - human v machine' do
     game_engine.play
   
     expect(mock_console).to have_received(:puts)
-      .with announce_winner('Player 2') + VISUAL_BOARD[:machine_wins]
+      .with announce_winner('Computer') + VISUAL_BOARD[:machine_wins]
   end
 
 end

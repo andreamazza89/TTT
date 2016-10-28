@@ -47,7 +47,8 @@ class GameEngine
 
   def next_turn
     ask_for_next_move(current_player)
-    board.add_move!(current_player.next_move(board), current_player.flag)
+    next_move = get_next_move(current_player)
+    board.add_move!(next_move, current_player.flag)
     change_turn
   end
 
@@ -68,9 +69,9 @@ class GameEngine
       when GAME_MODES[:human_v_human]
         @players = [default_human_player('Player 1', 'x', input), default_human_player('Player 2', 'o', input)]
       when GAME_MODES[:human_v_machine]
-        @players = [default_human_player('Player 1', 'x', input), default_machine_player('Player 2', 'o')]
+        @players = [default_human_player('Player 1', 'x', input), default_machine_player('Computer', 'o')]
       when GAME_MODES[:machine_v_machine]
-        @players = [default_machine_player('Player 1', 'x'), default_machine_player('Player 2', 'o')]
+        @players = [default_machine_player('Computer 1', 'x'), default_machine_player('Computer 2', 'o')]
     end
   end
 
@@ -102,6 +103,15 @@ class GameEngine
     output.puts player.name +
                 GAME_PROMPTS[:ask_for_next_move] +
                 board_printer.stringify_board(board)
+  end
+
+  def get_next_move(player)
+    begin
+      current_player.next_move(board)
+    rescue InvalidMove::IllegalInput, InvalidMove::CellAlreadyTaken => error
+      output.puts(GAME_PROMPTS[:please_try_again] + error.message)
+      get_next_move(board)
+    end
   end
 
   def find_player_name(player_flag)

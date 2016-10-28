@@ -5,8 +5,11 @@ GAME_PROMPTS = {
   announce_draw: "It was a draw!\n",
   game_mode_selection: "Please select a game mode: 1-Human v Human, 2-Human v PC, 3-PC v PC",
   invalid_game_mode_selection: "Invalid selection, please enter '1' '2' or '3': 1-Human v Human, 2-Human v PC, 3-PC v PC",
-  play_order_selection: "Would you like to swap the playing order? (y/Y)",
-  vertical_cell_separator: "|"
+  play_order_selection: "Would you like to swap who goes first? (y/Y)",
+  vertical_cell_separator: "|",
+  illegal_move: "Cannot make move: invalid input" ,
+  cell_already_taken: "Cannot make move: cell already taken",
+  please_try_again: "Please try again: "
 }
 
 NUMBER_TO_LETTER = {

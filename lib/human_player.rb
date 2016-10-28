@@ -43,13 +43,13 @@ end
 module InvalidMove 
 
   class CellAlreadyTaken < StandardError
-    def initialize(msg="Cannot make move: cell already taken")
+    def initialize(msg=GAME_PROMPTS[:cell_already_taken])
       super
     end
   end
 
   class IllegalInput < StandardError
-    def initialize(msg="Cannot make move: invalid input")
+    def initialize(msg=GAME_PROMPTS[:illegal_move])
       super
     end
   end
