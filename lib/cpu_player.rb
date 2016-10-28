@@ -12,8 +12,9 @@ class CpuPlayer
   end
 
   def next_move(board)
-    return board.available_moves.first if board.empty?
-    board.available_moves.max_by do |move|
+    available_moves = board.available_moves
+    return available_moves.first if board.empty?
+    available_moves.max_by do |move|
       rate_move_outcome(board, move, true, INITIAL_BOARD_DEPTH)
     end
   end
