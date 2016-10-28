@@ -1,10 +1,11 @@
 GAME_PROMPTS = {
-  ask_for_next_move: ", it's your turn, have a look at the board and pick a move:",
+  ask_for_next_move: ", it's your turn, have a look at the board and pick a move:\n",
   board_header: "\n  1 | 2 | 3 \n",
   board_horizontal_spacer: "  ----------\n",
   announce_draw: "It was a draw!\n",
   game_mode_selection: "Please select a game mode: 1-Human v Human, 2-Human v PC, 3-PC v PC",
-  play_order_selection: "Would you like to swap the playing order?",
+  invalid_game_mode_selection: "Invalid selection, please enter '1' '2' or '3': 1-Human v Human, 2-Human v PC, 3-PC v PC",
+  play_order_selection: "Would you like to swap the playing order? (y/Y)",
   vertical_cell_separator: "|"
 }
 

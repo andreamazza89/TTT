@@ -23,24 +23,18 @@ class GameEngine
   def setup_game_mode
     output.puts(GAME_PROMPTS[:game_mode_selection]) 
     selected_mode = input.gets.chomp
+
     until valid_game_mode_input?(selected_mode) do
       output.puts(GAME_PROMPTS[:invalid_game_mode_selection]) 
       selected_mode = input.gets.chomp
     end
 
-    case selected_mode
-      when GAME_MODES[:human_v_human]
-        @players = [default_human_player('Player 1', 'x', input), default_human_player('Player 2', 'o', input)]
-      when GAME_MODES[:human_v_machine]
-        @players = [default_human_player('Player 1', 'x', input), default_machine_player('Player 2', 'o')]
-      when GAME_MODES[:machine_v_machine]
-        @players = [default_machine_player('Player 1', 'x'), default_machine_player('Player 2', 'o')]
-    end
+    set_game_mode(selected_mode)
   end
 
   def setup_play_order
     output.puts(GAME_PROMPTS[:play_order_selection]) 
-    should_invert_playing_order = input.gets.chomp == "Y"
+    should_invert_playing_order = input.gets.chomp.match(YES_REGEX)
     change_turn if should_invert_playing_order
   end
 
@@ -67,6 +61,17 @@ class GameEngine
 
   def default_machine_player(name, flag)
     CpuPlayer.new(name: name, flag: flag)
+  end
+
+  def set_game_mode(selected_mode)
+    case selected_mode
+      when GAME_MODES[:human_v_human]
+        @players = [default_human_player('Player 1', 'x', input), default_human_player('Player 2', 'o', input)]
+      when GAME_MODES[:human_v_machine]
+        @players = [default_human_player('Player 1', 'x', input), default_machine_player('Player 2', 'o')]
+      when GAME_MODES[:machine_v_machine]
+        @players = [default_machine_player('Player 1', 'x'), default_machine_player('Player 2', 'o')]
+    end
   end
 
   def game_over?
@@ -111,5 +116,7 @@ class GameEngine
     human_v_machine: "2",
     machine_v_machine: "3"
   }
+
+  YES_REGEX = /y/i
 
 end

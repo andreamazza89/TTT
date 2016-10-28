@@ -18,6 +18,10 @@ def prompt_for_game_mode_selection
   GAME_PROMPTS[:game_mode_selection] 
 end
 
+def prompt_for_invalid_game_mode_selection
+  GAME_PROMPTS[:invalid_game_mode_selection] 
+end
+
 def prompt_for_play_order
   GAME_PROMPTS[:play_order_selection] 
 end
