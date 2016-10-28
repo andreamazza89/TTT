@@ -1,7 +1,6 @@
 describe BoardEvaluator, '#game_over?' do
 
   context 'When the board is full' do
-
     it 'returns true' do
       full_board = Board.new
       moves = [[[0,0], 'x'], [[0,1], 'o'], [[0,2], 'x'], 
@@ -11,18 +10,17 @@ describe BoardEvaluator, '#game_over?' do
 
       expect(described_class.game_over?(full_board)).to be true
     end
-
   end
 
-  context 'When the board is not full' do
 
-    it 'returns false with an empty board' do
+  context 'When the board is not full' do
+    it 'returns false (empty board)' do
       empty_board = Board.new
 
       expect(described_class.game_over?(empty_board)).to be false
     end
 
-    it 'returns false if no one has won yet' do
+    it 'returns false (no one has won yet)' do
       partial_board = Board.new
       moves = [[[0,0], 'x'], [[0,1], 'o'], [[0,2], 'x']]
       update_board_with_moves(partial_board, moves)
@@ -65,14 +63,13 @@ describe BoardEvaluator, '#game_over?' do
 
       expect(described_class.game_over?(winner_board)).to be true
     end
-
   end
 end
+
 
 describe BoardEvaluator, '#winner_flag' do
 
   context 'When a winner exists' do
-
     it 'returns the winning flag (crosses wins)' do
       winner_board = Board.new
       moves = [[[0,0], 'x'], [[1,0], 'o'], [[0,1], 'x'], 
@@ -90,11 +87,10 @@ describe BoardEvaluator, '#winner_flag' do
 
       expect(described_class.winner_flag(winner_board)).to eq('o')
     end
-
   end
 
-  context 'When there is no winner' do
 
+  context 'When there is no winner' do
     it 'returns nil' do
       unfinished_board = Board.new
       moves = [[[0,0], 'x'], [[0,1], 'o'], [[0,2], 'x']]
@@ -102,7 +98,5 @@ describe BoardEvaluator, '#winner_flag' do
 
       expect(described_class.winner_flag(unfinished_board)).to eq(nil)
     end
-
   end
-
 end
