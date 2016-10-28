@@ -47,7 +47,7 @@ class GameEngine
 
   def next_turn
     ask_for_next_move(current_player)
-    next_move = get_next_move(current_player)
+    next_move = get_next_move
     board.add_move!(next_move, current_player.flag)
     change_turn
   end
@@ -105,12 +105,12 @@ class GameEngine
                 board_printer.stringify_board(board)
   end
 
-  def get_next_move(player)
+  def get_next_move
     begin
       current_player.next_move(board)
     rescue InvalidMove::IllegalInput, InvalidMove::CellAlreadyTaken => error
       output.puts(GAME_PROMPTS[:please_try_again] + error.message)
-      get_next_move(board)
+      get_next_move
     end
   end
 
