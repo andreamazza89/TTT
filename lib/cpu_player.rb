@@ -53,7 +53,8 @@ class CpuPlayer
   def opponents_flag(board)
     opponents_flag ||= board.rows.each do |row|
       row.each do |cell|
-        return cell.flag if (cell.flag != self.flag) && (cell.flag != nil)
+        other_flag = cell.flag
+        return other_flag if (other_flag != self.flag) && (other_flag != nil)
       end
     end
   end
