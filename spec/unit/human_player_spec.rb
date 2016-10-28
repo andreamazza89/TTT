@@ -22,27 +22,59 @@ end
 
 describe HumanPlayer, '#next_move' do
 
-  it 'sends :gets to the given input stream to get the move' do
-    mock_user_input = spy('User input')
-    player_one = described_class.new(input: mock_user_input )
+  context 'Default' do
 
-    player_one.next_move("")
+    it 'sends :gets to the given input stream to get the move' do
+      mock_user_input = spy('User input', gets: "A1\n")
+      player_one = described_class.new(input: mock_user_input )
+      board = Board.new
 
-    expect(mock_user_input).to have_received(:gets)
+      player_one.next_move(board)
+
+      expect(mock_user_input).to have_received(:gets)
+    end
+
   end
 
-  it 'returns the input string, converted into a board move (example 1)' do
-    mock_user_input = double('User input', gets: "A1\n")
-    player_one = described_class.new(input: mock_user_input)
+  context 'When the input is valid' do
 
-    expect(player_one.next_move("")).to eq([0,0])
+    it 'returns the input string, converted into a board move (example 1)' do
+      mock_user_input = double('User input', gets: "A1\n")
+      player_one = described_class.new(input: mock_user_input)
+      board = Board.new
+
+      expect(player_one.next_move(board)).to eq([0,0])
+    end
+
+    it 'returns the input string, converted into a board move (example 2)' do
+      mock_user_input = double('User input', gets: "B2\n")
+      player_one = described_class.new(input: mock_user_input)
+      board = Board.new
+
+      expect(player_one.next_move(board)).to eq([1,1])
+    end
+
   end
 
-  it 'returns the input string, converted into a board move (example 2)' do
-    mock_user_input = double('User input', gets: "B2\n")
-    player_one = described_class.new(input: mock_user_input)
+  context 'When the input is invalid' do
 
-    expect(player_one.next_move("")).to eq([1,1])
+    it 'raises an invalid move exception (move already taken)' do
+      mock_user_input = double('User input', gets: "A1")
+      player_one = described_class.new(input: mock_user_input)
+      board = Board.new
+      board.add_move!([0,0], 'x')
+
+      expect{ player_one.next_move(board) }.to raise_error(InvalidMove::CellAlreadyTaken)
+    end
+
+    it 'raises an invalid move exception (illegal input)' do
+      mock_user_input = double('User input', gets: "ZZTop")
+      player_one = described_class.new(input: mock_user_input)
+      board = Board.new
+
+      expect{ player_one.next_move(board) }.to raise_error(InvalidMove::IllegalInput)
+    end
+    
   end
 
 end

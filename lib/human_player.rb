@@ -8,11 +8,12 @@ class HumanPlayer
     @flag = arguments[:flag]
   end
 
-  #the board is passed to this method as the CPU player needs it to evaluate next
-  #move and to keep the same interface
-  def next_move(board)#not required
+  def next_move(board)
     graphical_coordinates = input.gets.chomp
-    convert_graphical_to_board_coordinates(graphical_coordinates)
+    raise InvalidMove::IllegalInput unless graphical_coordinates.match(VALID_MOVE_REGEX)
+    move = convert_graphical_to_board_coordinates(graphical_coordinates)
+    raise InvalidMove::CellAlreadyTaken if board.available_moves.none? { |existing_move| existing_move == move }
+    move
   end
 
   attr_reader :name, :flag
@@ -33,6 +34,24 @@ class HumanPlayer
 
   def extract_column(move)
     move[1].to_i - 1
+  end
+
+  VALID_MOVE_REGEX = /[A-C][1-3]/
+
+end
+
+module InvalidMove 
+
+  class CellAlreadyTaken < StandardError
+    def initialize(msg="Cannot make move: cell already taken")
+      super
+    end
+  end
+
+  class IllegalInput < StandardError
+    def initialize(msg="Cannot make move: invalid input")
+      super
+    end
   end
 
 end
