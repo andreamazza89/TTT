@@ -13,8 +13,8 @@ describe Board, '#rows' do
                                Cell.new(row: 2, column: 1), 
                                Cell.new(row: 2, column: 2)]]
   end
-
 end
+
 
 describe Board, '#columns' do
 
@@ -31,8 +31,8 @@ describe Board, '#columns' do
                                   Cell.new(row: 1, column: 2), 
                                   Cell.new(row: 2, column: 2)]]
   end
-
 end
+
 
 describe Board, '#diagonals' do
 
@@ -46,8 +46,8 @@ describe Board, '#diagonals' do
                                    Cell.new(row: 1, column: 1), 
                                    Cell.new(row: 0, column: 2)]]
   end
-
 end
+
 
 describe Board, '#add_move!' do
 
@@ -59,8 +59,8 @@ describe Board, '#add_move!' do
     updated_cell = board.rows.first[0]
     expect(updated_cell.flag).to eq 'x'
   end
-
 end
+
 
 describe Board, '#add_move' do
 
@@ -74,24 +74,22 @@ describe Board, '#add_move' do
     expect(updated_cell.flag).to eq 'x'
     expect(unchanged_cell.flag).to eq nil
   end
-
 end
+
 
 describe Board, '#available_moves' do
 
   context 'When the board is empty' do
-
     it 'retuns an array of all possible moves' do
       board = described_class.new
 
       expect(board.available_moves)
         .to eq([[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]])
     end
-
   end
 
-  context 'When the board is full' do
 
+  context 'When the board is full' do
     it 'retuns an empty array' do
       full_board = described_class.new
       moves = [[[0,0], 'x'], [[0,1], 'o'], [[0,2], 'x'], 
@@ -102,11 +100,10 @@ describe Board, '#available_moves' do
       expect(full_board.available_moves)
         .to eq([])
     end
-
   end
 
-  context 'When the board is not full' do
 
+  context 'When the board is not full' do
     it 'retuns the appropriate array' do
       board = described_class.new
       moves = [[[0,0], 'x'], [[0,1], 'o'], [[0,2], 'x'], 
@@ -117,10 +114,9 @@ describe Board, '#available_moves' do
       expect(board.available_moves)
         .to eq([[2,0], [2,1], [2,2]])
     end
-
   end
-
 end
+
 
 describe Board, '#empty?' do
 
@@ -138,6 +134,7 @@ describe Board, '#empty?' do
   end
 
 end
+
 
 describe Board, '#rows_cols_diags' do
 
