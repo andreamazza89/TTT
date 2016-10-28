@@ -9,7 +9,7 @@ describe 'Integration - Human move input validation' do
       game_engine.next_turn
     
       expect(mock_console).to have_received(:puts)
-        .with please_try_again(GAME_PROMPTS[:illegal_move])
+        .with GAME_PROMPTS[:please_try_again] + GAME_PROMPTS[:illegal_move]
     end
 
     it 'Prompts the player for another move if the one given is already taken' do
@@ -20,7 +20,7 @@ describe 'Integration - Human move input validation' do
       game_engine.next_turn
     
       expect(mock_console).to have_received(:puts)
-        .with please_try_again(GAME_PROMPTS[:cell_already_taken])
+        .with GAME_PROMPTS[:please_try_again] + GAME_PROMPTS[:cell_already_taken]
     end
 
 end
