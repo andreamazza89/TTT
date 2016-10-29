@@ -11,15 +11,11 @@ def new_game_engine(arguments)
 end
 
 def prompt_for_input(player_name)
-  "#{player_name}, it's your turn, have a look at the board and pick a move:\n"
+  player_name + GAME_PROMPTS[:ask_for_next_move]
 end
 
 def announce_winner(player_name)
-  "Game over: #{player_name} wins!\n"
-end
-
-def announce_draw
-  GAME_PROMPTS[:announce_draw] 
+  GAME_PROMPTS[:announce_winner] + player_name
 end
 
 def update_board_with_moves(board, moves)

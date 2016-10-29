@@ -54,7 +54,7 @@ describe 'Integration - human v human' do
       game_engine.play
       
       expect(mock_console).to have_received(:puts)
-        .with announce_draw + VISUAL_BOARD[:draw]
+        .with GAME_PROMPTS[:announce_draw] + VISUAL_BOARD[:draw]
     end
   end
 end

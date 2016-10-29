@@ -96,7 +96,7 @@ class GameEngine
   end
 
   def winner_message(winner_name)
-    "Game over: #{winner_name} wins!\n"
+    GAME_PROMPTS[:announce_winner] + winner_name
   end
 
   def ask_for_next_move(player)

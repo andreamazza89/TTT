@@ -3,6 +3,7 @@ GAME_PROMPTS = {
   board_header: "\n  1 | 2 | 3 \n",
   board_horizontal_spacer: "  ----------\n",
   announce_draw: "It was a draw!\n",
+  announce_winner: "Game over: the winner was...\n",
   game_mode_selection: "Please select a game mode: 1-Human v Human, 2-Human v PC, 3-PC v PC",
   invalid_game_mode_selection: "Invalid selection, please enter '1' '2' or '3': 1-Human v Human, 2-Human v PC, 3-PC v PC",
   play_order_selection: "Would you like to swap who goes first? (y/Y)",
