@@ -7,8 +7,8 @@ describe HumanPlayer, '#name' do
     expect(player_one.name).to eq('1')
     expect(player_two.name).to eq('2')
   end
-
 end
+
 
 describe HumanPlayer, '#flag' do
 
@@ -17,13 +17,12 @@ describe HumanPlayer, '#flag' do
 
     expect(player_one.flag).to eq('x')
   end
-
 end
+
 
 describe HumanPlayer, '#next_move' do
 
   context 'Default' do
-
     it 'sends :gets to the given input stream to get the move' do
       mock_user_input = spy('User input', gets: "A1\n")
       player_one = described_class.new(input: mock_user_input )
@@ -33,11 +32,10 @@ describe HumanPlayer, '#next_move' do
 
       expect(mock_user_input).to have_received(:gets)
     end
-
   end
 
-  context 'When the input is valid' do
 
+  context 'When the input is valid' do
     it 'returns the input string, converted into a board move (example 1)' do
       mock_user_input = double('User input', gets: "A1\n")
       player_one = described_class.new(input: mock_user_input)
@@ -53,11 +51,10 @@ describe HumanPlayer, '#next_move' do
 
       expect(player_one.next_move(board)).to eq([1,1])
     end
-
   end
 
-  context 'When the input is invalid' do
 
+  context 'When the input is invalid' do
     it 'raises an invalid move exception (move already taken)' do
       mock_user_input = double('User input', gets: "A1")
       player_one = described_class.new(input: mock_user_input)
@@ -74,7 +71,5 @@ describe HumanPlayer, '#next_move' do
 
       expect{ player_one.next_move(board) }.to raise_error(InvalidMove::IllegalInput)
     end
-    
   end
-
 end
