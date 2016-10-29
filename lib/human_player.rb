@@ -12,7 +12,7 @@ class HumanPlayer
     graphical_coordinates = input.gets.chomp
     raise InvalidMove::IllegalInput unless graphical_coordinates.match(VALID_MOVE_REGEX)
     move = convert_graphical_to_board_coordinates(graphical_coordinates)
-    raise InvalidMove::CellAlreadyTaken if board.available_moves.none? { |existing_move| existing_move == move }
+    raise InvalidMove::CellAlreadyTaken if board.available_moves.none? { |available_move| available_move == move }
     move
   end
 
