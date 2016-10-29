@@ -141,6 +141,6 @@ class GameEngine
     machine_v_machine: "3"
   }
 
-  YES_REGEX = /y/i
+  YES_REGEX = /^y$/i
 
 end
