@@ -40,11 +40,11 @@ class CpuPlayer
   end
 
   def rate_intermediate_board_value(board, is_maximising_player, depth)
-    all_moves_ratings = all_moves_ratings(board, is_maximising_player, depth)
+    all_moves_ratings = rate_intermediate_moves(board, is_maximising_player, depth)
     is_maximising_player ? all_moves_ratings.max : all_moves_ratings.min
   end
 
-  def all_moves_ratings(board, is_maximising_player, depth)
+  def rate_intermediate_moves(board, is_maximising_player, depth)
     board.available_moves.map do |move| 
       rate_move_outcome(board, move, is_maximising_player, depth + 1)
     end
