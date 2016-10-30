@@ -14,8 +14,8 @@ class CpuPlayer
   end
 
   def next_move(board)
-    available_moves = board.available_moves
-    return available_moves.first if board.empty?
+    available_moves = board_evaluator.available_moves(board)
+    return available_moves.first if board_evaluator.empty?(board)
     available_moves.max_by do |move|
       rate_move_outcome(board, move, true, INITIAL_BOARD_DEPTH)
     end
@@ -47,7 +47,7 @@ class CpuPlayer
   end
 
   def rate_intermediate_moves(board, is_maximising_player, depth)
-    board.available_moves.map do |move| 
+    board_evaluator.available_moves(board).map do |move| 
       rate_move_outcome(board, move, is_maximising_player, depth + 1)
     end
   end

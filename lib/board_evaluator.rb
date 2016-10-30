@@ -18,12 +18,30 @@ class BoardEvaluator
     new(board).winner_flag
   end
 
+  def self.available_moves(board)
+    new(board).available_moves
+  end
+
+  def self.empty?(board)
+    new(board).empty?
+  end
+
   def game_over?
     board_full? || someone_has_won? 
   end
 
   def winner_flag
     winning_collection.nil? ? nil : winning_collection.first.flag
+  end
+
+  def available_moves
+    all_cells = board.rows.flatten
+    empty_cells = all_cells.select { |cell| cell.flag.nil? }
+    empty_cells.map { |cell| [cell.row, cell.column] }
+  end
+
+  def empty?
+    available_moves.length == board.rows.length**2
   end
 
   private
