@@ -52,7 +52,8 @@ different arrangement of these classes could be more _vertical_, whereby all
 messages are sent to the Board class, who then delegates onto BoardPrinter, 
 BoardEvaluator, etc.. This approach has the advantage of a cleaner interface 
 from the point of view of the user, so that method calls such as 
-```BoardEvaluator.empty?(board)``` become ```board.empty?```, however as I cannot 
-find any other advantages/disadvantages between the two, I have not made the 
-transition from one arrangement to the other. This can easily be achieved in the 
-future if further requirements or information make it more evident that the approach is best.
+```BoardEvaluator.empty?(board)``` become ```board.empty?```; this would also 
+mean that the user of these methods would need to know less to achieve the same 
+result. However, I have not made the transition from one arrangement to the other. 
+This can easily be achieved in the future if further requirements or information 
+make it more evident that the approach is best.
