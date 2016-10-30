@@ -1,4 +1,4 @@
-require_relative './game_engine'
+require_relative './lib/game_engine'
 
 game = GameEngine.new(input: STDIN, output: STDOUT)
 
