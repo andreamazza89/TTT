@@ -4,10 +4,6 @@ class BoardEvaluator
 
   def initialize(board)
     @board = board
-    @are_all_elements_one_flag = lambda do |collection| 
-      collection.none? { |cell| cell.flag.nil? } && 
-      collection.map { |cell| cell.flag }.uniq.length == 1
-    end
   end
 
   def self.game_over?(board)
@@ -46,7 +42,7 @@ class BoardEvaluator
 
   private
 
-  attr_reader :board, :are_all_elements_one_flag
+  attr_reader :board
 
   def board_full?
     board.rows.flatten.none? { |cell| cell.flag == nil}
@@ -58,10 +54,15 @@ class BoardEvaluator
 
   def winning_collection
     board.rows_cols_diags.each do |collection|
-      return collection if are_all_elements_one_flag.call(collection)
+      return collection if are_all_elements_one_flag?(collection)
     end
 
     nil
+  end
+
+  def are_all_elements_one_flag?(collection)
+    collection.none? { |cell| cell.flag.nil? } && 
+    collection.map { |cell| cell.flag }.uniq.length == 1
   end
 
 end
