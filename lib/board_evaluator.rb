@@ -1,3 +1,5 @@
+#Understands how to identify different properties of the TicTacToe board
+
 class BoardEvaluator
 
   def initialize(board)

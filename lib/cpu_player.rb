@@ -1,3 +1,5 @@
+#Understands how to select the optimal next move using the minimax algorithm
+
 require_relative './board_evaluator'
 
 class CpuPlayer

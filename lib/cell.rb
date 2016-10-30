@@ -1,3 +1,5 @@
+#Understands its location in a 2D board
+
 class Cell
 
   attr_reader :row, :column

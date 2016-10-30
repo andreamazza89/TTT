@@ -1,3 +1,5 @@
+#Understands how to render a Board into a string for human consumption
+
 require_relative './game_prompts'
 
 class BoardPrinter

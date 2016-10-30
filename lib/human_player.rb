@@ -1,3 +1,5 @@
+#Understands how to interact with the inputStream provided to get a valid move
+
 require_relative './game_prompts'
 
 class HumanPlayer

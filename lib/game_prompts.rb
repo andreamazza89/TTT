@@ -19,7 +19,6 @@ NUMBER_TO_LETTER = {
   2 => 'C',
 }
 
-
 LETTER_TO_NUMBER = {
   'A' => NUMBER_TO_LETTER.key('A'),
   'B' => NUMBER_TO_LETTER.key('B'),

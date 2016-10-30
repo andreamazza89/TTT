@@ -1,3 +1,5 @@
+#Understands gameflow, delegates to other classes to run a game
+
 require_relative './human_player'
 require_relative './cpu_player'
 require_relative './board'
