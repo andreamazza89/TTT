@@ -23,13 +23,7 @@ class Board
   end
 
   def columns
-    board_columns = []
-    board_state.length.times do |column_index|
-      column = []
-      rows.each { |row| column << row[column_index] }
-      board_columns << column
-    end
-    board_columns 
+   rows[0].zip(rows[1], rows[2])
   end
 
   def diagonals
