@@ -86,3 +86,44 @@ describe Board, '#rows_cols_diags' do
       .to eq(board.rows + board.columns + board.diagonals)
   end
 end
+
+
+describe Board, '#available_moves' do
+
+  context 'When the board is empty' do
+    it 'retuns an array of all possible moves' do
+      board = described_class.new
+
+      expect(board.available_moves)
+        .to eq([[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]])
+    end
+  end
+
+
+  context 'When the board is full' do
+    it 'retuns an empty array' do
+      full_board = described_class.new
+      moves = [[[0,0], 'x'], [[0,1], 'o'], [[0,2], 'x'], 
+               [[1,0], 'o'], [[1,1], 'x'], [[1,2], 'o'], 
+               [[2,0], 'x'], [[2,1], 'o'], [[2,2], 'x']] 
+      update_board_with_moves(full_board, moves)
+
+      expect(full_board.available_moves).to eq([])
+    end
+  end
+
+
+  context 'When the board is not full' do
+    it 'retuns the appropriate array' do
+      board = described_class.new
+      moves = [[[0,0], 'x'], [[0,1], 'o'], [[0,2], 'x'], 
+               [[1,0], 'o'], [[1,1], 'x'], [[1,2], 'o']]
+                
+      update_board_with_moves(board, moves)
+
+      expect(board.available_moves)
+        .to eq([[2,0], [2,1], [2,2]])
+    end
+  end
+
+end

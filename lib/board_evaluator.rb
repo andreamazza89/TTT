@@ -30,11 +30,13 @@ class BoardEvaluator
     winning_collection.nil? ? nil : winning_collection.first.flag
   end
 
+################################################################################
   def available_moves
     all_cells = board.rows.flatten
     empty_cells = all_cells.select { |cell| cell.flag.nil? }
     empty_cells.map { |cell| [cell.row, cell.column] }
   end
+################################################################################
 
   def empty?
     available_moves.length == board.rows.length**2

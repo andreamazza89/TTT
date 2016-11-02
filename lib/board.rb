@@ -36,6 +36,12 @@ class Board
     rows + columns + diagonals 
   end
 
+  def available_moves
+    all_cells = rows.flatten
+    empty_cells = all_cells.select { |cell| cell.flag.nil? }
+    empty_cells.map { |cell| [cell.row, cell.column] }
+  end
+
   private
 
   attr_reader :board_state
