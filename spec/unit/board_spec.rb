@@ -143,3 +143,107 @@ describe Board, '#empty?' do
     expect(board.empty?).to be false
   end
 end
+
+
+describe Board, '#winner_flag' do
+
+  context 'When a winner exists' do
+    it 'returns the winning flag (crosses wins)' do
+      winner_board = described_class.new
+      moves = [[[0,0], 'x'], [[1,0], 'o'], [[0,1], 'x'], 
+               [[1,1], 'o'], [[0,2], 'x']]
+      update_board_with_moves(winner_board, moves)
+
+      expect(winner_board.winner_flag).to eq('x')
+    end
+
+    it 'returns the winning flag (naughts wins)' do
+      winner_board = described_class.new
+      moves = [[[0,0], 'o'], [[1,0], 'x'], [[0,1], 'o'], 
+               [[1,1], 'x'], [[0,2], 'o']]
+      update_board_with_moves(winner_board, moves)
+
+      expect(winner_board.winner_flag).to eq('o')
+    end
+  end
+
+
+  context 'When there is no winner' do
+    it 'returns nil' do
+      unfinished_board = described_class.new
+      moves = [[[0,0], 'x'], [[0,1], 'o'], [[0,2], 'x']]
+      update_board_with_moves(unfinished_board, moves)
+
+      expect(unfinished_board.winner_flag).to eq(nil)
+    end
+  end
+end
+
+
+describe Board, '#game_over?' do
+
+  context 'When the board is full' do
+    it 'returns true' do
+      full_board = described_class.new
+      moves = [[[0,0], 'x'], [[0,1], 'o'], [[0,2], 'x'], 
+               [[1,0], 'o'], [[1,1], 'x'], [[1,2], 'o'], 
+               [[2,0], 'x'], [[2,1], 'o'], [[2,2], 'x']] 
+      update_board_with_moves(full_board, moves)
+
+      expect(full_board.game_over?).to be true
+    end
+  end
+
+
+  context 'When the board is not full' do
+    it 'returns false (empty board)' do
+      empty_board = described_class.new
+
+      expect(empty_board.game_over?).to be false
+    end
+
+    it 'returns false (no one has won yet)' do
+      partial_board = described_class.new
+      moves = [[[0,0], 'x'], [[0,1], 'o'], [[0,2], 'x']]
+      update_board_with_moves(partial_board, moves)
+
+      expect(partial_board.game_over?).to be false
+    end
+
+    it 'returns true if a player has won (row)' do
+      winner_board = described_class.new
+      moves = [[[0,0], 'x'], [[1,0], 'o'], [[0,1], 'x'], 
+               [[1,1], 'o'], [[0,2], 'x']]
+      update_board_with_moves(winner_board, moves)
+
+      expect(winner_board.game_over?).to be true
+    end
+
+    it 'returns true if a player has won (column)' do
+      winner_board = described_class.new
+      moves = [[[0,0], 'x'], [[0,1], 'o'], [[1,0], 'x'], 
+               [[0,2], 'o'], [[2,0], 'x']]
+      update_board_with_moves(winner_board, moves)
+
+      expect(winner_board.game_over?).to be true
+    end
+
+    it 'returns true if a player has won (downward diagonal)' do
+      winner_board = described_class.new
+      moves = [[[0,0], 'x'], [[0,1], 'o'], [[1,1], 'x'], 
+               [[0,2], 'o'], [[2,2], 'x']]
+      update_board_with_moves(winner_board, moves)
+
+      expect(winner_board.game_over?).to be true
+    end
+
+    it 'returns true if a player has won (upward diagonal)' do
+      winner_board = described_class.new
+      moves = [[[2,0], 'x'], [[0,1], 'o'], [[1,1], 'x'], 
+               [[0,1], 'o'], [[0,2], 'x']]
+      update_board_with_moves(winner_board, moves)
+
+      expect(winner_board.game_over?).to be true
+    end
+  end
+end

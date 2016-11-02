@@ -43,7 +43,15 @@ class Board
   end
 
   def empty?
-    available_moves.length == rows.length**2
+    available_moves.length == BOARD_SIZE**2
+  end
+
+  def winner_flag
+    winning_collection.nil? ? nil : winning_collection.first.flag
+  end
+
+  def game_over?
+    board_full? || someone_has_won? 
   end
 
   private
@@ -68,6 +76,27 @@ class Board
       board << row
     end
     board
+  end
+
+  def winning_collection
+    rows_cols_diags.each do |collection|
+      return collection if are_all_elements_one_flag?(collection)
+    end
+
+    nil
+  end
+
+  def are_all_elements_one_flag?(collection)
+    collection.none? { |cell| cell.flag.nil? } && 
+    collection.map { |cell| cell.flag }.uniq.length == 1
+  end
+
+  def board_full?
+    rows.flatten.none? { |cell| cell.flag == nil}
+  end
+
+  def someone_has_won?
+    !!winner_flag
   end
 
   BOARD_SIZE = 3
