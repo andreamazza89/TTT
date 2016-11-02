@@ -100,21 +100,3 @@ describe BoardEvaluator, '#winner_flag' do
     end
   end
 end
-
-
-describe BoardEvaluator, '#empty?' do
-
-  it 'returns true for a new board' do
-    board = Board.new
-
-    expect(described_class.empty?(board)).to be true
-  end
-
-  it 'returns false if there are any moves on the board' do
-    board = Board.new
-    board.add_move!([0,0], 'x')
-
-    expect(described_class.empty?(board)).to be false
-  end
-
-end

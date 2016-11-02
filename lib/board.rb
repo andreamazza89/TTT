@@ -42,6 +42,10 @@ class Board
     empty_cells.map { |cell| [cell.row, cell.column] }
   end
 
+  def empty?
+    available_moves.length == rows.length**2
+  end
+
   private
 
   attr_reader :board_state

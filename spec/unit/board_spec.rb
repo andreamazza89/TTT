@@ -125,5 +125,21 @@ describe Board, '#available_moves' do
         .to eq([[2,0], [2,1], [2,2]])
     end
   end
+end
 
+
+describe Board, '#empty?' do
+
+  it 'returns true for a new board' do
+    board = described_class.new
+
+    expect(board.empty?).to be true
+  end
+
+  it 'returns false if there are any moves on the board' do
+    board = described_class.new
+    board.add_move!([0,0], 'x')
+
+    expect(board.empty?).to be false
+  end
 end
