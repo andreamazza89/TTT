@@ -1,4 +1,4 @@
-#Understands how to update the state of a TicTacToe board
+#Understands the properties of a TicTacToe board
 
 require_relative './cell'
 
