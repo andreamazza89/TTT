@@ -1,7 +1,6 @@
 #Understands how to interact with the inputStream provided to get a valid move
 
 require_relative './game_prompts'
-require_relative './board_evaluator'
 
 class HumanPlayer
 
@@ -9,20 +8,19 @@ class HumanPlayer
     @name = arguments[:name] 
     @input = arguments[:input]
     @flag = arguments[:flag]
-    @board_evaluator = BoardEvaluator
   end
 
   def next_move(board)
     graphical_coordinates = input.gets.chomp
     raise InvalidMove::IllegalInput unless graphical_coordinates.match(VALID_MOVE_REGEX)
     move = convert_graphical_to_board_coordinates(graphical_coordinates)
-    if board_evaluator.available_moves(board).none? { |available_move| available_move == move }
+    if board.available_moves.none? { |available_move| available_move == move }
       raise InvalidMove::CellAlreadyTaken 
     end
     move
   end
 
-  attr_reader :name, :flag, :board_evaluator
+  attr_reader :name, :flag
 
   private
 

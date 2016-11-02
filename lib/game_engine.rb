@@ -4,7 +4,6 @@ require_relative './human_player'
 require_relative './cpu_player'
 require_relative './board'
 require_relative './board_printer'
-require_relative './board_evaluator'
 require_relative './game_prompts'
 
 class GameEngine
@@ -19,7 +18,6 @@ class GameEngine
 
     @board = Board.new
     @board_printer = BoardPrinter
-    @board_evaluator = BoardEvaluator
   end
 
   def setup_game_mode
@@ -41,7 +39,7 @@ class GameEngine
   end
 
   def play
-    until game_over?
+    until board.game_over?
       next_turn
     end
     announce_outcome
@@ -56,7 +54,7 @@ class GameEngine
 
   private 
 
-  attr_reader :output, :board, :board_printer, :board_evaluator, :input, :players
+  attr_reader :output, :board, :board_printer, :input, :players
 
   def default_human_player(name, flag, input)
     HumanPlayer.new(name: name, flag: flag, input: input)
@@ -77,12 +75,8 @@ class GameEngine
     end
   end
 
-  def game_over?
-    board_evaluator.game_over?(board)
-  end
-
   def announce_outcome
-    winner_flag = board_evaluator.winner_flag(board)
+    winner_flag = board.winner_flag
 
     if winner_flag.nil?
       output.puts(draw_message + printed_board)
