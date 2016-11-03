@@ -6,6 +6,7 @@ require_relative '../lib/game_settings'
 require_relative '../lib/board'
 require_relative '../lib/cell'
 require_relative '../lib/board_printer'
+require_relative '../lib/user_interface'
 require_relative '../lib/human_player'
 require_relative '../lib/cpu_player'
 

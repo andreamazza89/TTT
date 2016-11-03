@@ -13,8 +13,14 @@ end
 
 def new_game_settings(arguments = {})
   input_stream = arguments[:input] || readable_moves("1", "N")
-  output_stream = arguments[:output] || DumbConsole
+  output_stream = arguments[:output] || DumbIOStream
   GameSettings.new(input: input_stream, output: output_stream )
+end
+
+def new_user_interface(arguments)
+  input_stream = arguments[:input] || DumbIOStream
+  output_stream = arguments[:output] || DumbIOStream
+  UserInterface.new(input: input_stream, output: output_stream )
 end
 
 def prompt_for_input(player_name)
@@ -33,7 +39,10 @@ def update_board_with_moves(board, moves)
   end
 end
 
-class DumbConsole
+class DumbIOStream
   def self.puts(message)
+  end
+  def self.gets
+    'whatever the real stream returns'
   end
 end

@@ -1,4 +1,5 @@
 GAME_PROMPTS = {
+  welcome: "Welcome to TicTacToe!!",
   ask_for_next_move: ", it's your turn, have a look at the board and pick a move:\n",
   board_header: "\n  1 | 2 | 3 \n",
   board_horizontal_spacer: "  ----------\n",
