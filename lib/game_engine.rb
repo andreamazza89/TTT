@@ -1,7 +1,5 @@
 #Understands gameflow, delegates to other classes to run a game
 
-require_relative './human_player'
-require_relative './cpu_player'
 require_relative './board'
 require_relative './board_printer'
 require_relative './game_settings'
@@ -69,7 +67,7 @@ class GameEngine
     begin
       current_player.next_move(board)
     rescue InvalidMove::IllegalInput, InvalidMove::CellAlreadyTaken => error
-      output.puts(GAME_PROMPTS[:please_try_again] + error.message)
+      user_interface.invalid_input(error.message)
       get_next_move
     end
   end

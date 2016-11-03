@@ -4,6 +4,8 @@ require_relative './game_prompts'
 
 class HumanPlayer
 
+  attr_reader :name, :flag
+
   def initialize(arguments)
     @user_interface = arguments[:user_interface]
     @name = arguments[:name]
@@ -19,8 +21,6 @@ class HumanPlayer
     end
     move
   end
-
-  attr_reader :name, :flag
 
   private
 
