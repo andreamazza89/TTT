@@ -42,7 +42,7 @@ describe UserInterface, '#announce_winner' do
 end
 
 
-describe UserInterface, '#get_next_move' do
+describe UserInterface, '#ask_for_next_move' do
 
   it 'sends the next_move prompt to the output stream' do
     mock_console = spy('Console')
@@ -50,11 +50,15 @@ describe UserInterface, '#get_next_move' do
     mock_board = 'this is a string representation of the current board state'
     ui = new_user_interface(output: mock_console)
 
-    ui.get_next_move(mock_next_player, mock_board)
+    ui.ask_for_next_move(mock_next_player, mock_board)
 
     expect(mock_console).to have_received(:puts)
       .with mock_next_player + GAME_PROMPTS[:ask_for_next_move] + mock_board
   end
+end
+
+
+describe UserInterface, '#get_next_move' do
 
   it 'returns the move (chomped) from the given input stream' do
     mock_user_input = readable_moves("A1")
@@ -62,7 +66,7 @@ describe UserInterface, '#get_next_move' do
     mock_board = 'this is a string representation of the current board state'
     ui = new_user_interface(input: mock_user_input)
 
-    expect(ui.get_next_move(mock_next_player, mock_board)).to eq "A1"
+    expect(ui.get_next_move).to eq "A1"
   end
 end
 

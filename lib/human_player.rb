@@ -5,13 +5,13 @@ require_relative './game_prompts'
 class HumanPlayer
 
   def initialize(arguments)
-    @name = arguments[:name] 
-    @input = arguments[:input]
+    @user_interface = arguments[:user_interface]
+    @name = arguments[:name]
     @flag = arguments[:flag]
   end
 
   def next_move(board)
-    graphical_coordinates = input.gets.chomp
+    graphical_coordinates = user_interface.get_next_move
     raise InvalidMove::IllegalInput unless graphical_coordinates.match(VALID_MOVE_REGEX)
     move = convert_graphical_to_board_coordinates(graphical_coordinates)
     if board.available_moves.none? { |available_move| available_move == move }
@@ -24,7 +24,7 @@ class HumanPlayer
 
   private
 
-  attr_reader :input
+  attr_reader :user_interface
 
   def convert_graphical_to_board_coordinates(graphical_coordinates)
     row = extract_row(graphical_coordinates)

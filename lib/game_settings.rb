@@ -9,19 +9,16 @@ class GameSettings
 
   def initialize(arguments)
     @players = []
-    @output = arguments[:output]
-    @input = arguments[:input]
+    @user_interface = arguments[:user_interface]
   end
 
   def select_game_mode
-    output.puts(GAME_PROMPTS[:game_mode_selection])
-    selected_mode = input.gets.chomp
+    selected_mode = user_interface.select_game_mode
     set_players_type(selected_mode)
   end
 
   def select_playing_order
-    output.puts(GAME_PROMPTS[:play_order_selection])
-    should_invert_order = input.gets.chomp.match(YES_REGEX)
+    should_invert_order = user_interface.select_playing_order.match(YES_REGEX)
     players.rotate! if should_invert_order
   end
 
@@ -31,19 +28,19 @@ class GameSettings
 
   private
 
-  attr_reader :output, :input
+  attr_reader :output, :input, :user_interface
 
   def set_players_type(selected_mode)
     case selected_mode
       when GAME_MODES[:human_v_human]
-        @players = [HumanPlayer.new({name: 'Player 1', flag: 'x', input: input}), 
-                    HumanPlayer.new({name: 'Player 2', flag: 'o', input: input})]
+        @players = [HumanPlayer.new({ name: 'Player 1', flag: 'x', user_interface: user_interface }), 
+                    HumanPlayer.new({ name: 'Player 2', flag: 'o', user_interface: user_interface })]
       when GAME_MODES[:human_v_machine]
-        @players = [HumanPlayer.new({name: 'Player 1', flag: 'x', input: input}), 
-                    CpuPlayer.new({name: 'Computer', flag: 'o', input: input})]
+        @players = [HumanPlayer.new({ name: 'Player 1', flag: 'x', user_interface: user_interface }), 
+                    CpuPlayer.new({ name: 'Computer', flag: 'o'})]
       when GAME_MODES[:machine_v_machine]
-        @players = [CpuPlayer.new({name: 'Computer 1', flag: 'x', input: input}), 
-                    CpuPlayer.new({name: 'Computer 2', flag: 'o', input: input})]
+        @players = [CpuPlayer.new({ name: 'Computer 1', flag: 'x' }), 
+                    CpuPlayer.new({ name: 'Computer 2', flag: 'o' })]
     end
   end
 

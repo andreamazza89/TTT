@@ -12,8 +12,7 @@ class GameEngine
   attr_writer :players
 
   def initialize(arguments)
-    @input = arguments[:input]
-    @output = arguments[:output]
+    @user_interface = arguments[:user_interface]
 
     @players = []
     game_settings = arguments[:game_settings]
@@ -39,16 +38,16 @@ class GameEngine
 
   private 
 
-  attr_reader :output, :board, :board_printer, :input, :players
+  attr_reader :output, :board, :board_printer, :input, :players, :user_interface
 
   def announce_outcome
     winner_flag = board.winner_flag
 
     if winner_flag.nil?
-      output.puts(draw_message + printed_board)
+      user_interface.announce_draw(printed_board)
     else
       winner_name = find_player_name(winner_flag)
-      output.puts(winner_message(winner_name) + printed_board)
+      user_interface.announce_winner(winner_name, printed_board)
     end
     
   end
@@ -62,9 +61,8 @@ class GameEngine
   end
 
   def ask_for_next_move(player)
-    output.puts player.name +
-                GAME_PROMPTS[:ask_for_next_move] +
-                board_printer.stringify_board(board)
+    user_interface.ask_for_next_move(player.name, 
+                                     board_printer.stringify_board(board))
   end
 
   def get_next_move

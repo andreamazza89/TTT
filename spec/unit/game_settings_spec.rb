@@ -9,26 +9,25 @@ describe GameSettings, '#players' do
 end
 
 
-describe GameSettings, '#select_game_mode' do
+describe GameSettings do
   
   context 'default' do
-    it 'prompts the injected output stream for input' do
-      mock_output_stream = spy('Console') 
-      game_settings = new_game_settings({ output: mock_output_stream })
+    it 'sends #select_game_mode to the user interface' do
+      mock_user_interface = spy('UserInterface') 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
 
-      expect(mock_output_stream)
-        .to have_received(:puts)
-        .with GAME_PROMPTS[:game_mode_selection]
+      expect(mock_user_interface).to have_received(:select_game_mode)
     end
   end
 
 
   context 'When the user selects Human v Human' do
     it 'sets both players to be human' do
-      mock_user_input = readable_moves("1")
-      game_settings = new_game_settings({ input: mock_user_input })
+      mock_user_interface = instance_double('UserInterface', 
+                                             select_game_mode: "1") 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
 
@@ -37,8 +36,9 @@ describe GameSettings, '#select_game_mode' do
     end
 
     it 'defaults player names to Player 1 & Player 2' do
-      mock_user_input = readable_moves("1")
-      game_settings = new_game_settings({ input: mock_user_input })
+      mock_user_interface = instance_double('UserInterface', 
+                                             select_game_mode: "1") 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
 
@@ -47,8 +47,9 @@ describe GameSettings, '#select_game_mode' do
     end
 
     it 'defaults player flags to x & o' do
-      mock_user_input = readable_moves("1")
-      game_settings = new_game_settings({ input: mock_user_input })
+      mock_user_interface = instance_double('UserInterface', 
+                                             select_game_mode: "1") 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
 
@@ -60,8 +61,9 @@ describe GameSettings, '#select_game_mode' do
 
   context 'When the user selects Human v Machine' do
     it 'sets one player to be human the other to be machine' do
-      mock_user_input = readable_moves("2")
-      game_settings = new_game_settings({ input: mock_user_input })
+      mock_user_interface = instance_double('UserInterface', 
+                                             select_game_mode: "2") 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
 
@@ -70,8 +72,9 @@ describe GameSettings, '#select_game_mode' do
     end
 
     it 'defaults player names to Player 1 & Computer' do
-      mock_user_input = readable_moves("2")
-      game_settings = new_game_settings({ input: mock_user_input })
+      mock_user_interface = instance_double('UserInterface', 
+                                             select_game_mode: "2") 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
 
@@ -80,8 +83,9 @@ describe GameSettings, '#select_game_mode' do
     end
 
     it 'defaults player flags to x & o' do
-      mock_user_input = readable_moves("2")
-      game_settings = new_game_settings({ input: mock_user_input })
+      mock_user_interface = instance_double('UserInterface', 
+                                             select_game_mode: "2") 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
 
@@ -93,8 +97,9 @@ describe GameSettings, '#select_game_mode' do
 
   context 'When the user selects Machine v Machine' do
     it 'sets both players to be machine' do
-      mock_user_input = readable_moves("3")
-      game_settings = new_game_settings({ input: mock_user_input })
+      mock_user_interface = instance_double('UserInterface', 
+                                             select_game_mode: "3") 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
 
@@ -103,8 +108,9 @@ describe GameSettings, '#select_game_mode' do
     end
 
     it 'defaults player names to Computer 1 & Computer 2' do
-      mock_user_input = readable_moves("3")
-      game_settings = new_game_settings({ input: mock_user_input })
+      mock_user_interface = instance_double('UserInterface', 
+                                             select_game_mode: "3") 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
 
@@ -113,8 +119,9 @@ describe GameSettings, '#select_game_mode' do
     end
 
     it 'defaults player flags to x & o' do
-      mock_user_input = readable_moves("3")
-      game_settings = new_game_settings({ input: mock_user_input })
+      mock_user_interface = instance_double('UserInterface', 
+                                             select_game_mode: "3") 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
 
@@ -128,23 +135,22 @@ end
 describe GameSettings, '#select_playing_order' do
   
   context 'default' do
-    it 'prompts the injected output stream for input' do
-      mock_output_stream = spy('Console') 
-      game_settings = new_game_settings({ output: mock_output_stream })
+    it 'sends select_playing_order to the user interface' do
+      mock_user_interface = spy('UserInterface') 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_playing_order
 
-      expect(mock_output_stream)
-        .to have_received(:puts)
-        .with GAME_PROMPTS[:play_order_selection]
+      expect(mock_user_interface).to have_received(:select_playing_order)
     end
   end
 
 
   context 'When the user wants to change the order' do
     it 'reverses the players array' do
-      mock_user_input = readable_moves("Y")
-      game_settings = new_game_settings({ input: mock_user_input })
+      mock_user_interface = instance_double('UserInterface', 
+                                             select_playing_order: "Y") 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
       game_settings.players = [1,2]
     
       game_settings.select_playing_order
@@ -157,8 +163,9 @@ describe GameSettings, '#select_playing_order' do
 
   context 'When the user does not want to change the order' do
     it 'does not reverse the players array' do
-      mock_user_input = readable_moves("N")
-      game_settings = new_game_settings({ input: mock_user_input })
+      mock_user_interface = instance_double('UserInterface', 
+                                             select_playing_order: "N") 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
       game_settings.players = [1,2]
     
       game_settings.select_playing_order

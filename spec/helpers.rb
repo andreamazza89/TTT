@@ -6,15 +6,13 @@ def readable_moves(*moves)
 end
 
 def new_game_engine(arguments)
-  GameEngine.new(input: arguments[:input], 
-                 output: arguments[:output], 
+  GameEngine.new(user_interface: arguments[:user_interface], 
                  game_settings: arguments[:game_settings])
 end
 
 def new_game_settings(arguments = {})
-  input_stream = arguments[:input] || readable_moves("1", "N")
-  output_stream = arguments[:output] || DumbIOStream
-  GameSettings.new(input: input_stream, output: output_stream )
+  user_interface = arguments[:user_interface]
+  GameSettings.new(user_interface: user_interface)
 end
 
 def new_user_interface(arguments)

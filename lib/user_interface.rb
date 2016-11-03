@@ -1,3 +1,5 @@
+require_relative './game_prompts'
+
 class UserInterface
 
   def initialize(arguments)
@@ -17,8 +19,11 @@ class UserInterface
     send_to_output(GAME_PROMPTS[:announce_winner] + name + final_board)
   end
 
-  def get_next_move(player, board)
+  def ask_for_next_move(player, board)
     send_to_output(player + GAME_PROMPTS[:ask_for_next_move] + board)
+  end
+
+  def get_next_move
     read_from_input
   end
 
