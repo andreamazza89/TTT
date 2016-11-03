@@ -3,14 +3,8 @@ describe 'Integration - Human move input validation' do
   let(:mock_console) { spy('Console') }
 
   it 'Prompts the player for another move if the one given is illegal' do
-    mock_user_input = readable_moves("1", "Y", "ZZTop", "A1")
-    mock_user_interface = UserInterface.new(input: mock_user_input,
-                                              output: mock_console)
-    game_settings = GameSettings.new(user_interface: mock_user_interface)
-    game_settings.select_game_mode
-    game_settings.select_playing_order
-    game_engine = new_game_engine(user_interface: mock_user_interface, 
-                                    game_settings: game_settings)
+    mock_user_input = readable_moves("1", "No", "ZZTop", "A1")
+    game_engine = create_game_engine(mock_user_input, mock_console)
 
     game_engine.next_turn
   
@@ -19,14 +13,8 @@ describe 'Integration - Human move input validation' do
   end
 
   it 'Prompts the player for another move if the one given is already taken' do
-    mock_user_input = readable_moves("1", "Y", "A1", "A1", "A2")
-    mock_user_interface = UserInterface.new(input: mock_user_input,
-                                              output: mock_console)
-    game_settings = GameSettings.new(user_interface: mock_user_interface)
-    game_settings.select_game_mode
-    game_settings.select_playing_order
-    game_engine = new_game_engine(user_interface: mock_user_interface, 
-                                    game_settings: game_settings)
+    mock_user_input = readable_moves("1", "No", "A1", "A1", "A2")
+    game_engine = create_game_engine(mock_user_input, mock_console)
 
     game_engine.next_turn
     game_engine.next_turn
