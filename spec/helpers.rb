@@ -1,5 +1,4 @@
 require_relative '../lib/game_prompts'
-#####IMPORT AND USE THE STANDARD PROMPTS
 
 def readable_moves(*moves)
   all_moves_in_one_string = moves.join("\n")
@@ -8,6 +7,12 @@ end
 
 def new_game_engine(arguments)
   GameEngine.new(input: arguments[:input], output: mock_console)
+end
+
+def new_game_settings(arguments = {})
+  input_stream = arguments[:input] || readable_moves("1", "Y")
+  output_stream = arguments[:output] || DumbConsole
+  GameSettings.new(input: input_stream, output: output_stream )
 end
 
 def prompt_for_input(player_name)
@@ -23,5 +28,10 @@ def update_board_with_moves(board, moves)
     move_coordinates = move[0]
     move_flag = move[1]
     board.add_move!(move_coordinates, move_flag)
+  end
+end
+
+class DumbConsole
+  def self.puts(message)
   end
 end

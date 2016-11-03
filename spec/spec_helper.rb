@@ -2,6 +2,7 @@ require 'coveralls'
 Coveralls.wear!
 
 require_relative '../lib/game_engine'
+require_relative '../lib/game_settings'
 require_relative '../lib/board'
 require_relative '../lib/cell'
 require_relative '../lib/board_printer'
