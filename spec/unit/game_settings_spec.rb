@@ -13,7 +13,7 @@ describe GameSettings, '#select_game_mode' do
   
   context 'default' do
     it 'sends #select_game_mode to the user interface' do
-      mock_user_interface = spy('UserInterface', select_game_mode: "1") 
+      mock_user_interface = instance_double('UserInterface', select_game_mode: "1") 
       game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
@@ -25,8 +25,7 @@ describe GameSettings, '#select_game_mode' do
 
   context 'When the user selects Human v Human' do
     it 'sets both players to be human' do
-      mock_user_interface = instance_double('UserInterface', 
-                                             select_game_mode: "1") 
+      mock_user_interface = instance_double('UserInterface', select_game_mode: "1") 
       game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
@@ -36,8 +35,7 @@ describe GameSettings, '#select_game_mode' do
     end
 
     it 'defaults player names to Player 1 & Player 2' do
-      mock_user_interface = instance_double('UserInterface', 
-                                             select_game_mode: "1") 
+      mock_user_interface = instance_double('UserInterface', select_game_mode: "1") 
       game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
@@ -47,8 +45,7 @@ describe GameSettings, '#select_game_mode' do
     end
 
     it 'defaults player flags to x & o' do
-      mock_user_interface = instance_double('UserInterface', 
-                                             select_game_mode: "1") 
+      mock_user_interface = instance_double('UserInterface', select_game_mode: "1") 
       game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
@@ -61,8 +58,7 @@ describe GameSettings, '#select_game_mode' do
 
   context 'When the user selects Human v Machine' do
     it 'sets one player to be human the other to be machine' do
-      mock_user_interface = instance_double('UserInterface', 
-                                             select_game_mode: "2") 
+      mock_user_interface = instance_double('UserInterface', select_game_mode: "2") 
       game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
@@ -72,8 +68,7 @@ describe GameSettings, '#select_game_mode' do
     end
 
     it 'defaults player names to Player 1 & Computer' do
-      mock_user_interface = instance_double('UserInterface', 
-                                             select_game_mode: "2") 
+      mock_user_interface = instance_double('UserInterface', select_game_mode: "2") 
       game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
@@ -83,8 +78,7 @@ describe GameSettings, '#select_game_mode' do
     end
 
     it 'defaults player flags to x & o' do
-      mock_user_interface = instance_double('UserInterface', 
-                                             select_game_mode: "2") 
+      mock_user_interface = instance_double('UserInterface', select_game_mode: "2") 
       game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
@@ -97,8 +91,7 @@ describe GameSettings, '#select_game_mode' do
 
   context 'When the user selects Machine v Machine' do
     it 'sets both players to be machine' do
-      mock_user_interface = instance_double('UserInterface', 
-                                             select_game_mode: "3") 
+      mock_user_interface = instance_double('UserInterface', select_game_mode: "3") 
       game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
@@ -108,8 +101,7 @@ describe GameSettings, '#select_game_mode' do
     end
 
     it 'defaults player names to Computer 1 & Computer 2' do
-      mock_user_interface = instance_double('UserInterface', 
-                                             select_game_mode: "3") 
+      mock_user_interface = instance_double('UserInterface', select_game_mode: "3") 
       game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
@@ -119,8 +111,7 @@ describe GameSettings, '#select_game_mode' do
     end
 
     it 'defaults player flags to x & o' do
-      mock_user_interface = instance_double('UserInterface', 
-                                             select_game_mode: "3") 
+      mock_user_interface = instance_double('UserInterface', select_game_mode: "3") 
       game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
