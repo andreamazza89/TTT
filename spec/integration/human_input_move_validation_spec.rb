@@ -1,4 +1,4 @@
-describe 'Integration - Human move input validation' do
+xdescribe 'Integration - Human move input validation' do
 
   let(:mock_console) { spy('Console') }
 

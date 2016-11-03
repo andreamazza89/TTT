@@ -1,4 +1,4 @@
-describe 'Integration - game setup' do
+xdescribe 'Integration - game setup' do
 
   let(:mock_console) { spy('Console') }
 

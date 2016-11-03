@@ -6,11 +6,13 @@ def readable_moves(*moves)
 end
 
 def new_game_engine(arguments)
-  GameEngine.new(input: arguments[:input], output: mock_console)
+  GameEngine.new(input: arguments[:input], 
+                 output: arguments[:output], 
+                 game_settings: arguments[:game_settings])
 end
 
 def new_game_settings(arguments = {})
-  input_stream = arguments[:input] || readable_moves("1", "Y")
+  input_stream = arguments[:input] || readable_moves("1", "N")
   output_stream = arguments[:output] || DumbConsole
   GameSettings.new(input: input_stream, output: output_stream )
 end

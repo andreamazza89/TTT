@@ -34,14 +34,14 @@ class GameSettings
   def set_players_type(selected_mode)
     case selected_mode
       when GAME_MODES[:human_v_human]
-        @players = [HumanPlayer.new({name: 'Player 1', flag: 'x'}), 
-                    HumanPlayer.new({name: 'Player 2', flag: 'o'})]
+        @players = [HumanPlayer.new({name: 'Player 1', flag: 'x', input: input}), 
+                    HumanPlayer.new({name: 'Player 2', flag: 'o', input: input})]
       when GAME_MODES[:human_v_machine]
-        @players = [HumanPlayer.new({name: 'Player 1', flag: 'x'}), 
-                    CpuPlayer.new({name: 'Computer', flag: 'o'})]
+        @players = [HumanPlayer.new({name: 'Player 1', flag: 'x', input: input}), 
+                    CpuPlayer.new({name: 'Computer', flag: 'o', input: input})]
       when GAME_MODES[:machine_v_machine]
-        @players = [CpuPlayer.new({name: 'Computer 1', flag: 'x'}), 
-                    CpuPlayer.new({name: 'Computer 2', flag: 'o'})]
+        @players = [CpuPlayer.new({name: 'Computer 1', flag: 'x', input: input}), 
+                    CpuPlayer.new({name: 'Computer 2', flag: 'o', input: input})]
     end
   end
 
