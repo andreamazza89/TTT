@@ -23,7 +23,7 @@ class GameEngine
   def play
     until board.game_over?
       next_turn
-    end
+    end 
     announce_outcome
   end
 
@@ -48,14 +48,6 @@ class GameEngine
       user_interface.announce_winner(winner_name, printed_board)
     end
     
-  end
-
-  def draw_message
-    GAME_PROMPTS[:announce_draw]
-  end
-
-  def winner_message(winner_name)
-    GAME_PROMPTS[:announce_winner] + winner_name
   end
 
   def ask_for_next_move(player)
