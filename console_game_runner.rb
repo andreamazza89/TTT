@@ -1,9 +1,11 @@
 require_relative './lib/game_engine'
-
-game = GameEngine.new(input: STDIN, output: STDOUT)
+require_relative './lib/game_settings'
 
 puts 'Welcome to TicTacToe!!'
 
-game.setup_game_mode
-game.setup_play_order
+game_settings = GameSettings.new(input: STDIN, output: STDOUT)
+game_settings.select_game_mode
+game_settings.select_playing_order
+game = GameEngine.new(input: STDIN, output: STDOUT, game_settings: game_settings)
+
 game.play
