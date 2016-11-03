@@ -16,6 +16,10 @@ class GameSettings
 
   def select_game_mode
     selected_mode = user_interface.select_game_mode
+    until valid_game_mode_input?(selected_mode)
+      user_interface.invalid_game_mode_selection
+      selected_mode = user_interface.select_game_mode
+    end
     set_players_type(selected_mode)
   end
 
@@ -44,6 +48,10 @@ class GameSettings
         @players = [CpuPlayer.new({ name: 'Computer 1', flag: 'x' }), 
                     CpuPlayer.new({ name: 'Computer 2', flag: 'o' })]
     end
+  end
+
+  def valid_game_mode_input?(input)
+    %w[1 2 3].include?(input)
   end
 
   GAME_MODES = {

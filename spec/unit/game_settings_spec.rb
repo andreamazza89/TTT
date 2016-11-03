@@ -9,11 +9,11 @@ describe GameSettings, '#players' do
 end
 
 
-describe GameSettings do
+describe GameSettings, '#select_game_mode' do
   
   context 'default' do
     it 'sends #select_game_mode to the user interface' do
-      mock_user_interface = spy('UserInterface') 
+      mock_user_interface = spy('UserInterface', select_game_mode: "1") 
       game_settings = new_game_settings({ user_interface: mock_user_interface })
     
       game_settings.select_game_mode
@@ -129,6 +129,21 @@ describe GameSettings do
       expect(game_settings.players[1].flag).to eq 'o'
     end
   end
+
+  context 'When the input does not match any available mode' do
+    it 'sends :invalid_game_mode_selection to the user interface' do
+      mock_user_input = readable_moves("999", "1")
+      mock_user_output = double('Console', puts: nil)
+      mock_user_interface = UserInterface.new(input: mock_user_input, 
+                                              output: mock_user_output)
+                                              
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
+    
+      expect(mock_user_interface).to receive(:invalid_game_mode_selection)
+
+      game_settings.select_game_mode
+    end
+  end
 end
 
 
@@ -147,9 +162,21 @@ describe GameSettings, '#select_playing_order' do
 
 
   context 'When the user wants to change the order' do
-    it 'reverses the players array' do
+    it 'reverses the players array (user enters Y)' do
       mock_user_interface = instance_double('UserInterface', 
                                              select_playing_order: "Y") 
+      game_settings = new_game_settings({ user_interface: mock_user_interface })
+      game_settings.players = [1,2]
+    
+      game_settings.select_playing_order
+
+      expect(game_settings.players[0]).to eq 2
+      expect(game_settings.players[1]).to eq 1
+    end
+
+    it 'reverses the players array (user enters y)' do
+      mock_user_interface = instance_double('UserInterface', 
+                                             select_playing_order: "y") 
       game_settings = new_game_settings({ user_interface: mock_user_interface })
       game_settings.players = [1,2]
     

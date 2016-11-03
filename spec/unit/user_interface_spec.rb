@@ -123,3 +123,16 @@ describe UserInterface, '#select_playing_order' do
     expect(ui.select_playing_order).to eq "Y"
   end
 end
+
+  
+describe UserInterface, '#invalid_game_mode_selection' do
+  it 'sends the invalid_game_mode_selection prompt to the output stream' do
+    mock_console = spy('Console')
+    ui = new_user_interface(output: mock_console)
+
+    ui.invalid_game_mode_selection
+
+    expect(mock_console).to have_received(:puts)
+      .with GAME_PROMPTS[:invalid_game_mode_selection]
+  end
+end

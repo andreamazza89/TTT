@@ -41,6 +41,10 @@ class UserInterface
     read_from_input
   end
 
+  def invalid_game_mode_selection
+    send_to_output(GAME_PROMPTS[:invalid_game_mode_selection]) 
+  end
+
   private
   
   attr_reader :output, :input
