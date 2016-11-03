@@ -1,3 +1,5 @@
+#Understands the options available to play a game of tictactoe
+
 require_relative './game_prompts'
 
 class GameSettings
