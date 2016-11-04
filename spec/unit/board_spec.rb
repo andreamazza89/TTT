@@ -49,6 +49,17 @@ describe Board, '#diagonals' do
 end
 
 
+describe Board, '#rows_cols_diags' do
+
+  it 'returns an array of rows, columns and diagonals' do
+    board = described_class.new
+
+    expect(board.rows_cols_diags)
+      .to eq(board.rows + board.columns + board.diagonals)
+  end
+end
+
+
 describe Board, '#add_move!' do
 
   it 'updates the board state as per the position/flag provided' do
@@ -73,17 +84,6 @@ describe Board, '#add_move' do
     unchanged_cell = original_board.rows[0][0] 
     expect(updated_cell.flag).to eq 'x'
     expect(unchanged_cell.flag).to eq nil
-  end
-end
-
-
-describe Board, '#rows_cols_diags' do
-
-  it 'returns an array of rows, columns and diagonals' do
-    board = described_class.new
-
-    expect(board.rows_cols_diags)
-      .to eq(board.rows + board.columns + board.diagonals)
   end
 end
 
