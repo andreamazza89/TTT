@@ -121,9 +121,36 @@ describe Board, '#available_moves' do
                 
       update_board_with_moves(board, moves)
 
-      expect(board.available_moves)
-        .to eq([[2,0], [2,1], [2,2]])
+      expect(board.available_moves).to eq([[2,0], [2,1], [2,2]])
     end
+  end
+end
+
+
+describe Board, '#is_move_available?' do
+
+  it 'returns true for an available move' do
+    board = described_class.new
+    moves = [[[0,0], 'x']]
+              
+    update_board_with_moves(board, moves)
+
+    expect(board.is_move_available?([1,1])).to be true
+  end
+
+  it 'returns false for a move that is not available' do
+    board = described_class.new
+    moves = [[[0,0], 'x']]
+              
+    update_board_with_moves(board, moves)
+
+    expect(board.is_move_available?([0,0])).to be false
+  end
+
+  it 'returns false for a move that does not exist' do
+    board = described_class.new
+
+    expect(board.is_move_available?([4,4])).to be false
   end
 end
 

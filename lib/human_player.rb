@@ -1,4 +1,4 @@
-#Understands how to interact with the inputStream provided to get a valid move
+#Understands how to interact with the user interface provided to get a valid move
 
 require_relative './game_prompts'
 
@@ -16,7 +16,7 @@ class HumanPlayer
     graphical_coordinates = user_interface.get_next_move
     raise InvalidMove::IllegalInput unless graphical_coordinates.match(VALID_MOVE_REGEX)
     move = convert_graphical_to_board_coordinates(graphical_coordinates)
-    raise InvalidMove::CellAlreadyTaken if !is_move_available?(move, board) 
+    raise InvalidMove::CellAlreadyTaken if !board.is_move_available?(move) 
     move
   end
 
@@ -29,13 +29,6 @@ class HumanPlayer
     column = extract_column(graphical_coordinates)
     [row, column] 
   end
-
-#MAYBE MOVE INSIDE BOARD?
-################################################################################
-  def is_move_available?(move, board)
-    board.available_moves.include? (move)
-  end
-################################################################################
 
   def extract_row(move)
     LETTER_TO_NUMBER[move[0]]

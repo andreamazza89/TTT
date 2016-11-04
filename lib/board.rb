@@ -42,6 +42,10 @@ class Board
     empty_cells.map { |cell| [cell.row, cell.column] }
   end
 
+  def is_move_available?(move)
+    available_moves.include? (move)
+  end
+
   def empty?
     available_moves.length == BOARD_SIZE**2
   end
