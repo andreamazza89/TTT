@@ -16,9 +16,7 @@ class HumanPlayer
     graphical_coordinates = user_interface.get_next_move
     raise InvalidMove::IllegalInput unless graphical_coordinates.match(VALID_MOVE_REGEX)
     move = convert_graphical_to_board_coordinates(graphical_coordinates)
-    if board.available_moves.none? { |available_move| available_move == move }
-      raise InvalidMove::CellAlreadyTaken 
-    end
+    raise InvalidMove::CellAlreadyTaken if !is_move_available?(move, board) 
     move
   end
 
@@ -31,6 +29,13 @@ class HumanPlayer
     column = extract_column(graphical_coordinates)
     [row, column] 
   end
+
+#MAYBE MOVE INSIDE BOARD?
+################################################################################
+  def is_move_available?(move, board)
+    board.available_moves.include? (move)
+  end
+################################################################################
 
   def extract_row(move)
     LETTER_TO_NUMBER[move[0]]
