@@ -29,7 +29,9 @@ end
 def new_user_interface(arguments)
   input_stream = arguments[:input] || DumbIOStream
   output_stream = arguments[:output] || DumbIOStream
-  UserInterface.new(input: input_stream, output: output_stream )
+  board_printer = arguments[:board_printer]
+  UserInterface.new(input: input_stream, output: output_stream, 
+                    board_printer: board_printer)
 end
 
 def prompt_for_input(player_name)

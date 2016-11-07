@@ -1,7 +1,6 @@
 #Understands gameflow, delegates to other classes to run a game
 
 require_relative './board'
-require_relative './board_printer'
 require_relative './game_settings'
 require_relative './game_prompts'
 
@@ -17,7 +16,6 @@ class GameEngine
     game_settings.apply_settings(self)
 
     @board = Board.new
-    @board_printer = BoardPrinter
   end
 
   def play
@@ -36,23 +34,22 @@ class GameEngine
 
   private 
 
-  attr_reader :output, :board, :board_printer, :input, :players, :user_interface
+  attr_reader :output, :board, :input, :players, :user_interface
 
   def announce_outcome
     winner_flag = board.winner_flag
 
     if winner_flag.nil?
-      user_interface.announce_draw(printed_board)
+      user_interface.announce_draw(board)
     else
-      winner_name = find_player_name(winner_flag)
-      user_interface.announce_winner(winner_name, printed_board)
+      winner = find_player(winner_flag)
+      user_interface.announce_winner(winner, board)
     end
     
   end
 
   def ask_for_next_move(player)
-    user_interface.ask_for_next_move(player.name, 
-                                     board_printer.stringify_board(board))
+    user_interface.ask_for_next_move(player, board)
   end
 
   def get_next_move
@@ -64,13 +61,9 @@ class GameEngine
     end
   end
 
-  def find_player_name(player_flag)
+  def find_player(player_flag)
     player_index = players.index { |player| player.flag == player_flag }
-    players[player_index].name
-  end
-
-  def printed_board
-    board_printer.stringify_board(board)
+    players[player_index]
   end
 
   def current_player
