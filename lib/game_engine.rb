@@ -13,8 +13,6 @@ class GameEngine
     @user_interface = arguments[:user_interface]
 
     @players = []
-    game_settings = arguments[:game_settings]
-    game_settings.apply_settings(self)
 
     @board = Board.new
     @board_printer = BoardPrinter
@@ -32,6 +30,10 @@ class GameEngine
     next_move = get_next_move
     board.add_move!(next_move, current_player.flag)
     change_turn
+  end
+
+  def change_turn
+    players.rotate!
   end
 
   private 
@@ -75,10 +77,6 @@ class GameEngine
 
   def current_player
     players.first
-  end
-
-  def change_turn
-    players.rotate!
   end
 
   def valid_game_mode_input?(input)
