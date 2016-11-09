@@ -3,7 +3,6 @@
 require_relative './board'
 require_relative './board_printer'
 require_relative './game_settings'
-require_relative './game_prompts'
 
 class GameEngine
 
