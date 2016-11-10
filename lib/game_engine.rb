@@ -35,7 +35,7 @@ class GameEngine
 
   private 
 
-  attr_reader :output, :board, :input, :user_interface
+  attr_reader :board, :user_interface
 
   def announce_outcome
     winner_flag = board.winner_flag
