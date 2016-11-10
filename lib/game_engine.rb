@@ -5,19 +5,20 @@ require_relative './game_settings'
 
 class GameEngine
 
-  attr_writer :players
+  attr_accessor :players
 
   def initialize(arguments)
     @user_interface = arguments[:user_interface]
 
     @players = []
 
-    @board = Board.new
+    @board = arguments[:board] || Board.new
   end
 
   def play
     until board.game_over?
       next_turn
+      change_turn
     end 
     announce_outcome
   end
@@ -26,7 +27,6 @@ class GameEngine
     ask_for_next_move(current_player)
     next_move = get_next_move
     board.add_move!(next_move, current_player.flag)
-    change_turn
   end
 
   def change_turn
@@ -35,7 +35,7 @@ class GameEngine
 
   private 
 
-  attr_reader :output, :board, :input, :players, :user_interface
+  attr_reader :output, :board, :input, :user_interface
 
   def announce_outcome
     winner_flag = board.winner_flag
