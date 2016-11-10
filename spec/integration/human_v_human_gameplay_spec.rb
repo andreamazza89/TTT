@@ -18,6 +18,7 @@ describe 'Integration - human v human' do
       game_engine = create_game_engine(input: mock_user_input, output: mock_console)
 
       game_engine.next_turn
+      game_engine.change_turn
       game_engine.next_turn
       
       expect(mock_console).to have_received(:puts)
