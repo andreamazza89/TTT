@@ -1,26 +1,31 @@
 require_relative './game_prompts'
+require_relative './board_printer'
 
 class UserInterface
 
   def initialize(arguments)
     @output = arguments[:output]
     @input = arguments[:input]
+    @board_printer = arguments[:board_printer] || BoardPrinter
   end
 
   def welcome
     send_to_output(GAME_PROMPTS[:welcome])
   end
 
-  def announce_draw(final_board)
-    send_to_output(GAME_PROMPTS[:announce_draw] + final_board)
+  def announce_draw(board)
+    send_to_output(GAME_PROMPTS[:announce_draw] + printed_board(board))
   end
 
-  def announce_winner(name, final_board)
-    send_to_output(GAME_PROMPTS[:announce_winner] + name + final_board)
+  def announce_winner(player, board)
+    winners_name = player.name
+    send_to_output(GAME_PROMPTS[:announce_winner] + 
+                   winners_name + 
+                   printed_board(board))
   end
 
   def ask_for_next_move(player, board)
-    send_to_output(player + GAME_PROMPTS[:ask_for_next_move] + board)
+    send_to_output(player.name + GAME_PROMPTS[:ask_for_next_move] + printed_board(board))
   end
 
   def get_next_move
@@ -47,7 +52,7 @@ class UserInterface
 
   private
   
-  attr_reader :output, :input
+  attr_reader :output, :input, :board_printer
 
   def send_to_output(message)
     output.puts(message)
@@ -55,5 +60,9 @@ class UserInterface
 
   def read_from_input
     input.gets.chomp 
+  end
+
+  def printed_board(board)
+    board_printer.stringify_board(board)
   end
 end
