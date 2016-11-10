@@ -6,24 +6,25 @@ def readable_moves(*moves)
 end
 
 def new_game_engine(arguments)
-  GameEngine.new(user_interface: arguments[:user_interface], 
-                 game_settings: arguments[:game_settings])
+  GameEngine.new(user_interface: arguments[:user_interface])
 end
 
 def create_game_engine(input, output)
   user_interface = UserInterface.new(input: input,
                                      output: output)
-  game_settings = GameSettings.new(user_interface: user_interface)
+  game_engine = GameEngine.new(user_interface: user_interface)
+  game_settings = GameSettings.new(user_interface: user_interface, 
+                                   game_engine: game_engine)
   game_settings.select_game_mode
   game_settings.select_playing_order
-  game_engine = new_game_engine(user_interface: user_interface, 
-                                game_settings: game_settings)
   game_engine
 end
 
 def new_game_settings(arguments = {})
   user_interface = arguments[:user_interface]
-  GameSettings.new(user_interface: user_interface)
+  game_engine = arguments[:game_engine] || MockGameEngine.new
+  GameSettings.new(user_interface: user_interface, 
+                   game_engine: game_engine)
 end
 
 def new_user_interface(arguments)
@@ -47,6 +48,27 @@ def update_board_with_moves(board, moves)
     move_coordinates = move[0]
     move_flag = move[1]
     board.add_move!(move_coordinates, move_flag)
+  end
+end
+
+class MockGameEngine
+
+  attr_accessor :players
+  
+  def initialize
+    @players = []
+  end
+
+  def player_one
+    players.first
+  end
+
+  def player_two
+    players.last
+  end
+
+  def change_turn
+    players.rotate!
   end
 end
 

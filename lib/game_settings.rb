@@ -6,12 +6,9 @@ require_relative './cpu_player'
 
 class GameSettings
 
-  attr_accessor :players
-
-
   def initialize(arguments)
-    @players = []
     @user_interface = arguments[:user_interface]
+    @game_engine = arguments[:game_engine]
   end
 
   def select_game_mode
@@ -20,12 +17,12 @@ class GameSettings
       user_interface.invalid_game_mode_selection
       selected_mode = user_interface.select_game_mode
     end
-    set_players_type(selected_mode)
+    game_engine.players = set_players_type(selected_mode)
   end
 
   def select_playing_order
     should_invert_order = user_interface.select_playing_order.match(YES_REGEX)
-    players.rotate! if should_invert_order
+    game_engine.change_turn if should_invert_order
   end
 
   def apply_settings(game_engine)
@@ -34,7 +31,7 @@ class GameSettings
 
   private
 
-  attr_reader :output, :input, :user_interface
+  attr_reader :output, :input, :user_interface, :game_engine
 
   def set_players_type(selected_mode)
     case selected_mode
