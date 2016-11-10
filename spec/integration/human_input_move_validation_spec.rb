@@ -4,7 +4,7 @@ describe 'Integration - Human move input validation' do
 
   it 'Prompts the player for another move if the one given is illegal' do
     mock_user_input = readable_moves("1", "No", "ZZTop", "A1")
-    game_engine = create_game_engine(mock_user_input, mock_console)
+    game_engine = create_game_engine(input: mock_user_input, output: mock_console)
 
     game_engine.next_turn
   
@@ -14,7 +14,7 @@ describe 'Integration - Human move input validation' do
 
   it 'Prompts the player for another move if the one given is already taken' do
     mock_user_input = readable_moves("1", "No", "A1", "A1", "A2")
-    game_engine = create_game_engine(mock_user_input, mock_console)
+    game_engine = create_game_engine(input: mock_user_input, output: mock_console)
 
     game_engine.next_turn
     game_engine.next_turn

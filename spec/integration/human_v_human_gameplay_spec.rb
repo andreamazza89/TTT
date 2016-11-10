@@ -5,7 +5,7 @@ describe 'Integration - human v human' do
   context 'At the start of the game' do
     it 'Asks the player for a move and shows the board' do     
       mock_user_input = readable_moves("1", "No", "A1")
-      game_engine = create_game_engine(mock_user_input, mock_console)
+      game_engine = create_game_engine(input: mock_user_input, output: mock_console)
 
       game_engine.next_turn
       
@@ -15,7 +15,7 @@ describe 'Integration - human v human' do
 
     it 'Updates the board with first move' do
       mock_user_input = readable_moves("1", "No", "A1", "B2")
-      game_engine = create_game_engine(mock_user_input, mock_console)
+      game_engine = create_game_engine(input: mock_user_input, output: mock_console)
 
       game_engine.next_turn
       game_engine.next_turn
@@ -29,7 +29,7 @@ describe 'Integration - human v human' do
   context 'Full game' do
     it 'Announces a winner when there is one (Player 1 wins)' do
       mock_user_input = readable_moves("1", "No", "A1", "A2", "B2", "A3", "C3")
-      game_engine = create_game_engine(mock_user_input, mock_console)
+      game_engine = create_game_engine(input: mock_user_input, output: mock_console)
 
       game_engine.play
       
@@ -39,7 +39,7 @@ describe 'Integration - human v human' do
 
     it 'Announces a winner when there is one (Player 2 wins)' do
       mock_user_input = readable_moves("1", "No", "A1", "A2", "A3", "B2", "B1", "C2")
-      game_engine = create_game_engine(mock_user_input, mock_console)
+      game_engine = create_game_engine(input: mock_user_input, output: mock_console)
 
       game_engine.play
       
@@ -50,7 +50,7 @@ describe 'Integration - human v human' do
     it 'Announces a draw when no one wins' do
       mock_user_input = readable_moves("1", "No", 
                           "A1", "A2", "A3", "B2", "B1", "B3", "C2", "C1", "C3")
-      game_engine = create_game_engine(mock_user_input, mock_console)
+      game_engine = create_game_engine(input: mock_user_input, output: mock_console)
 
       game_engine.play
       

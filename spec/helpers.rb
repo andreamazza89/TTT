@@ -9,9 +9,9 @@ def new_game_engine(arguments)
   GameEngine.new(user_interface: arguments[:user_interface])
 end
 
-def create_game_engine(input, output)
-  user_interface = UserInterface.new(input: input,
-                                     output: output)
+def create_game_engine(arguments)
+  user_interface = new_user_interface(input: arguments[:input],
+                                     output: arguments[:output])
   game_engine = GameEngine.new(user_interface: user_interface)
   game_settings = GameSettings.new(user_interface: user_interface, 
                                    game_engine: game_engine)
