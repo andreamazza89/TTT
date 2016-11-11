@@ -65,8 +65,6 @@ describe UserInterface, '#get_next_move' do
 
   it 'returns the move (chomped) from the given input stream' do
     mock_user_input = readable_moves("A1")
-    mock_next_player = 'this is the players whose turn is name'
-    mock_board = 'this is a string representation of the current board state'
     ui = new_user_interface(input: mock_user_input)
 
     expect(ui.get_next_move).to eq "A1"
