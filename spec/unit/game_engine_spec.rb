@@ -27,5 +27,31 @@ describe GameEngine, '#change_turn' do
 end
 
 
-describe GameEngine do
+describe GameEngine, '#play' do
+
+  context 'When the game is over' do
+    it 'announces the outcome (draw)' do
+      mock_user_interface = spy('Console')
+      mock_board = instance_double('Board', game_over?: true, winner_flag: nil)
+      game_engine = described_class.new(user_interface: mock_user_interface, 
+                                        board: mock_board)
+
+      game_engine.play
+
+      expect(mock_user_interface).to have_received(:announce_draw).with(mock_board)
+    end
+
+    it 'announces the outcome (winner)' do
+      mock_user_interface = spy('Console')
+      mock_board = instance_double('Board', game_over?: true, winner_flag: 'x')
+      game_engine = described_class.new(user_interface: mock_user_interface, 
+                                        board: mock_board)
+      mock_player = instance_double('Player', flag: 'x')
+      game_engine.players = [mock_player]
+
+      game_engine.play
+
+      expect(mock_user_interface).to have_received(:announce_winner).with(mock_player, mock_board)
+    end
+  end
 end
